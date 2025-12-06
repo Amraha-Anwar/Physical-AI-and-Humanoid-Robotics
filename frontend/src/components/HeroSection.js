@@ -37,7 +37,7 @@ export default function HeroSection({ title, subtitle, ctaText, ctaLink, imageSr
         <div className="hero-image-container">
           <div className="hero-image-wrapper">
              {/* Glow behind image */}
-            <div className="hero-image-glow" />
+            <div className="hero-image-glow animate-pulse-glow" />
             
             <img 
               src={imageSrc} 
