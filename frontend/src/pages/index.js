@@ -3,6 +3,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HeroSection from '../components/HeroSection';
 import ModuleCard from '../components/ModuleCard';
+import LearningJourneyMatrix from '../components/LearningJourneyMatrix';
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
@@ -22,42 +23,51 @@ export default function Home() {
 
       <main className="container padding-vert--xl">
         
-        {/* Master the Stack Section */}
+        {/* The Four Modules (Breakdown & Scope) */}
+        <LearningJourneyMatrix />
+        
+        {/* Core Competencies (Learning Outcomes) - Asymmetrical Grid */}
         <section className="margin-bottom--xl">
           <div className="text--center margin-bottom--lg">
             <h2 className="section-title">
-              Master the Stack
+              Core Competencies
             </h2>
             <div className="section-divider" />
             <p className="section-description">
-              A comprehensive curriculum designed to take you from core concepts to deploying autonomous agents on humanoid hardware.
+              Achieve mastery in the critical skills required to build, simulate, and deploy autonomous humanoid robots.
             </p>
           </div>
 
-          <div className="grid-layout">
+          <div className="competency-grid">
             <ModuleCard 
-              title="Module 1: Foundations"
-              description="ROS 2, URDF modeling, and the architecture of robotic systems."
+              title="Physical Intelligence"
+              description="Design and control embodied agents that interact dynamically with the real world."
               link="/docs/module1/architecture-concepts"
-              icon="🏗️"
+              icon="⚡"
             />
             <ModuleCard 
-              title="Module 2: Simulation"
-              description="Master physics, sensors, and environments in Gazebo & Isaac Sim."
+              title="Sim-to-Real Transfer"
+              description="Bridge the gap between high-fidelity simulation and physical hardware deployment."
               link="/docs/module2/gazebo-setup"
-              icon="🌐"
+              icon="🔄"
             />
             <ModuleCard 
-              title="Module 3: Perception"
-              description="VSLAM, Navigation 2, and spatial awareness for humanoids."
+              title="Cognitive Reasoning"
+              description="Implement multimodal LLMs and VLAs for high-level planning and decision making."
+              link="/docs/module4/conversational-robotics"
+              icon="🧠"
+            />
+            <ModuleCard 
+              title="Spatial Perception"
+              description="Master vSLAM and semantic understanding for robust navigation in unstructured environments."
               link="/docs/module3/isaac-sim-intro"
               icon="👁️"
             />
-            <ModuleCard 
-              title="Module 4: Cognition"
-              description="Integrate LLMs, VLAs, and planning for true autonomy."
-              link="/docs/module4/conversational-robotics"
-              icon="🧠"
+             <ModuleCard 
+              title="Full-Stack Deployment"
+              description="Architect production-grade ROS 2 systems with containerization and orchestration."
+              link="/docs/intro/foundations"
+              icon="🚀"
             />
           </div>
         </section>
