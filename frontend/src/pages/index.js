@@ -43,31 +43,31 @@ export default function Home() {
               title="Physical Intelligence"
               description="Design and control embodied agents that interact dynamically with the real world."
               link="/docs/module1/architecture-concepts"
-              icon="⚡"
+              icon="🟡"
             />
             <ModuleCard 
               title="Sim-to-Real Transfer"
               description="Bridge the gap between high-fidelity simulation and physical hardware deployment."
               link="/docs/module2/gazebo-setup"
-              icon="🔄"
+              icon="🟡"
             />
             <ModuleCard 
               title="Cognitive Reasoning"
               description="Implement multimodal LLMs and VLAs for high-level planning and decision making."
               link="/docs/module4/conversational-robotics"
-              icon="🧠"
+              icon="🟡"
             />
             <ModuleCard 
               title="Spatial Perception"
               description="Master vSLAM and semantic understanding for robust navigation in unstructured environments."
               link="/docs/module3/isaac-sim-intro"
-              icon="👁️"
+              icon="🟡"
             />
              <ModuleCard 
               title="Full-Stack Deployment"
               description="Architect production-grade ROS 2 systems with containerization and orchestration."
               link="/docs/intro/foundations"
-              icon="🚀"
+              icon="🟡"
             />
           </div>
         </section>

@@ -12,12 +12,12 @@ const config = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Physical-AI-Humanoid-robotics', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  projectName: 'Physical-AI-and-Humanoid-Robotics', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -51,12 +51,12 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/logo.png',
       navbar: {
         title: 'Physical AI & Humanoid Robotics',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: '/img/logo.png',
         },
         items: [
           {
@@ -66,7 +66,7 @@ const config = {
             label: 'Book',
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/',
             label: 'GitHub',
             position: 'right',
           },

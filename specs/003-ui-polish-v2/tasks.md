@@ -46,6 +46,8 @@
 ### Implementation Tasks
 
 - [x] T007 Perform final UI polish QA and verification using `specs/003-ui-polish-v2/quickstart.md`
+- [x] T008 Implement Site Logo and Favicon in `frontend/docusaurus.config.js` and `frontend/src/css/custom.css`
+- [x] T009 Final Logo/Favicon Configuration Overwrite and Build Check.
 
 ## Implementation Strategy
 
