@@ -1,55 +1,67 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+==================
+Version: [Initial Template] -> 1.0.0
+Principles Modified:
+- [PRINCIPLE_1_NAME] -> I. Technical Accuracy & Integrity
+- [PRINCIPLE_2_NAME] -> II. Step-by-Step Pedagogy
+- [PRINCIPLE_3_NAME] -> III. Consistency & Tone
+- [PRINCIPLE_4_NAME] -> IV. Format & Standardization
+- [PRINCIPLE_5_NAME] -> V. Code Integrity
+- [PRINCIPLE_6_NAME] -> Removed
+Added Sections:
+- Constraints & Technology Stack
+- Development Workflow
+Templates Checked:
+- .specify/templates/plan-template.md (✅ No changes needed)
+- .specify/templates/spec-template.md (✅ No changes needed)
+- .specify/templates/tasks-template.md (✅ No changes needed)
+-->
+
+# AI/Spec-Driven Book Creation: Physical AI & Humanoid Robotics Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Technical Accuracy & Integrity
+All content, code snippets, and hardware specifications must be factually correct and aligned with the official documentation for ROS 2, Gazebo, NVIDIA Isaac, and Docusaurus. This is non-negotiable. Misinformation or deprecated API usage (e.g., ROS 1 patterns in ROS 2 context) is a critical failure.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Step-by-Step Pedagogy
+The content must be structured to facilitate student learning, strictly moving from core concepts to practical implementation. The flow must adhere to the defined structure: [Introduction/Setup] -> [Module 1] -> [Module 2] -> [Module 3] -> [Module 4]. Each module must be broken down into logically sequenced chapters.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Consistency & Tone
+Maintain a consistent professional/academic tone suitable for a university-level capstone course. Use standardized terminology (e.g., always use "ROS 2" not "ROS 2.0"). The voice should be authoritative yet accessible, guiding the reader through complex physical AI concepts.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Format & Standardization
+All content must be in clean, valid **Markdown (MDX)** syntax, ready for direct inclusion into a Docusaurus documentation structure. No external file dependencies outside the defined project structure are permitted. Visualization tags must be strategically placed for complex concepts (e.g., ROS 2 computation graph, URDF structure).
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Code Integrity
+All code examples (e.g., Python `rclpy` nodes, URDF snippets) must be complete, syntactically correct, and use appropriate Markdown code blocks with language highlighting. Placeholder code is strictly forbidden unless explicitly pedagogically necessary (and clearly marked).
 
-### [PRINCIPLE_6_NAME]
+## Constraints & Technology Stack
 
+**Mandatory Tech Stack**:
+- **ROS 2 Humble/Iron** (No ROS 1)
+- **Python 3.10+** (`rclpy`)
+- **Gazebo** (Simulation)
+- **Unity** (Visualization/HRI)
+- **NVIDIA Isaac Sim/ROS**
+- **LLM/VLA Integration** (OpenAI Whisper/GPT)
 
-[PRINCIPLE__DESCRIPTION]
+**Deployment**:
+- Content must be compatible with Docusaurus static site generation.
+- Deployment target is GitHub Pages.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Development Workflow
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+**Content Generation**:
+1.  **Plan**: Define the module and chapter scope based on the Weekly Breakdown.
+2.  **Draft**: Generate MDX content adhering to principles.
+3.  **Verify**: Check code validity and technical accuracy against official docs.
+4.  **Format**: Ensure Docusaurus compatibility (frontmatter, relative links, admonitions).
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**Governance Rules**:
+- All PRs/changes must verify compliance with the strictly defined module structure.
+- No content related to legacy ROS 1 is permitted except for brief context.
+- Amendments to this constitution require a version bump and explicit rationale.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
-
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
-
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-05 | **Last Amended**: 2025-12-05
