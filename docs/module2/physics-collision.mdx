@@ -1,0 +1,67 @@
+---
+sidebar_position: 2
+title: "Physics and Collision Simulation"
+---
+
+# Physics and Collision Simulation
+
+For a humanoid robot, accurate physics is critical. Unlike a wheeled robot that is statically stable, a biped must constantly balance against gravity.
+
+## 2.1 Rigid Body Dynamics
+
+In Gazebo, every link is a rigid body. The physics engine (Dart, Bullet, or ODE) calculates forces based on:
+1.  **Mass**: How hard it is to accelerate.
+2.  **Inertia Tensor**: How hard it is to rotate.
+3.  **Center of Mass (CoM)**: The balance point.
+
+### Calculating Inertia
+For simple shapes, we use standard formulas. For complex meshes (like a 3D printed foot), we must compute the inertia tensor using CAD software (SolidWorks, Fusion 360) or MeshLab.
+
+```xml
+<inertial>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <mass value="0.5"/>
+  <!-- Example: Solid Sphere -->
+  <inertia ixx="0.002" ixy="0" ixz="0" iyy="0.002" iyz="0" izz="0.002"/>
+</inertial>
+```
+
+## 2.2 Collision Geometry
+
+While `visual` tags define what the robot looks like (high-poly mesh), `collision` tags define what the physics engine "sees" (simple shapes).
+
+:::tip Optimization
+Always use primitives (box, sphere, cylinder) for collision where possible. Mesh-mesh collision detection is computationally expensive and unstable.
+:::
+
+```xml
+<collision>
+  <geometry>
+    <cylinder length="0.4" radius="0.05"/>
+  </geometry>
+  <!-- Friction parameters -->
+  <surface>
+    <friction>
+      <ode>
+        <mu>0.8</mu> <!-- Static Friction -->
+        <mu2>0.8</mu2> <!-- Dynamic Friction -->
+      </ode>
+    </friction>
+  </surface>
+</collision>
+```
+
+## 2.3 Contact Properties for Feet
+
+Bipedal walking depends entirely on the friction between the foot and the ground.
+*   **High Friction**: Required to prevent slipping during the "push-off" phase.
+*   **Compliance (Kp/Kd)**: Simulates the rubber sole of a shoe. Hard contacts cause jitter; soft contacts absorb impact.
+
+In Gazebo, we tune `kp` (stiffness) and `kd` (damping) to prevent the robot from bouncing uncontrollably when it steps.
+
+## 2.4 Testing Stability
+
+1.  **Drop Test**: Spawn the robot 1 meter in the air. Does it land and settle, or does it explode?
+2.  **Push Test**: Apply a temporary force to the torso. Does it slide or tip?
+
+These tests validate your inertia and friction settings before you ever write a walking controller.

@@ -1,0 +1,99 @@
+---
+sidebar_position: 3
+title: "Robot Modeling (URDF) & RViz2"
+---
+
+# Robot Modeling with URDF & RViz2
+
+Before we can simulate physics, we need to define the robot's geometry. In ROS 2, we use **URDF (Unified Robot Description Format)**, an XML-based standard.
+
+## 3.1 Structure of a URDF
+
+A robot is essentially a tree of **Links** (rigid bodies) connected by **Joints** (motors/hinges).
+
+*   **Links**: Have visual properties (mesh, color), collision properties, and inertial properties (mass, inertia matrix).
+*   **Joints**: Define how two links move relative to each other (revolute, prismatic, fixed).
+
+## 3.2 Creating a Humanoid Leg
+
+Let's define a simplified leg with a thigh and a shin. Create `leg.urdf`:
+
+```xml
+<?xml version="1.0"?>
+<robot name="simple_humanoid">
+
+  <!-- Base Link (Hip) -->
+  <link name="hip_link">
+    <visual>
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- Thigh Link -->
+  <link name="thigh_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.4" radius="0.05"/>
+      </geometry>
+      <origin xyz="0 0 -0.2" rpy="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- Hip Joint -->
+  <joint name="hip_joint" type="revolute">
+    <parent link="hip_link"/>
+    <child link="thigh_link"/>
+    <origin xyz="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="100" velocity="1.0"/>
+  </joint>
+
+</robot>
+```
+
+## 3.3 Visualizing in RViz2
+
+RViz2 is the ROS visualization tool. It shows you what the robot "thinks" the world looks like.
+
+1.  **Install `joint_state_publisher_gui`**:
+    ```bash
+    sudo apt install ros-humble-joint-state-publisher-gui
+    ```
+
+2.  **Launch Visualization**:
+    We can use a standard launch file provided by the `urdf_tutorial` package (or write our own).
+    ```bash
+    ros2 launch urdf_tutorial display.launch.py model:=leg.urdf
+    ```
+
+3.  **Interact**:
+    A GUI window will appear with a slider for `hip_joint`. Moving the slider publishes `JointState` messages, causing the leg to rotate in the 3D view.
+
+## 3.4 Xacro (XML Macros)
+
+Writing raw XML is tedious. **Xacro** allows us to use variables and math.
+
+Example of simplifying the leg using a macro:
+```xml
+<xacro:macro name="leg_segment" params="prefix length">
+  <link name="${prefix}_link">
+    <visual>
+      <geometry>
+        <cylinder length="${length}" radius="0.05"/>
+      </geometry>
+    </visual>
+  </link>
+</xacro:macro>
+```
+
+:::info Capstone Linkage
+This simple leg is the building block. In the Capstone, we will assemble two full legs, a torso, and arms into a complete humanoid URDF that can be spawned in Gazebo.
+:::

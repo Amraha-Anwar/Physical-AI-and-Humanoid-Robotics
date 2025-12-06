@@ -1,0 +1,58 @@
+---
+sidebar_position: 1
+title: "ROS 2 Architecture & Core Concepts"
+---
+
+# ROS 2 Architecture: The Robotic Nervous System
+
+Before writing code, we must understand the anatomy of a ROS 2 system. Just as a human body has neurons and signals, a robot has **Nodes** and **Messages**.
+
+## 1.1 The Computation Graph
+
+ROS 2 systems are a network of independent processes communicating over a "Graph".
+
+<div style={{textAlign: 'center', margin: '20px'}}>
+  **[Diagram Tag: ROS 2 Computation Graph]**
+  *Visual description: A network diagram showing circular "Nodes" connected by rectangular "Topics". Arrows indicate data flow (Publish/Subscribe). Services are shown as bi-directional arrows.*
+</div>
+
+### Key Concepts
+
+1.  **Nodes**: The fundamental unit of computation. A node is a program that performs a specific task (e.g., `camera_driver`, `face_detector`, `motor_controller`).
+2.  **Discovery**: Nodes automatically find each other on the network using **DDS (Data Distribution Service)**. No master server is required (unlike ROS 1).
+
+## 1.2 Communication Patterns
+
+Robots need different ways to talk. ROS 2 provides three primary patterns:
+
+### A. Topics (Publish / Subscribe)
+*   **Analogy**: Broadcasting a radio stream.
+*   **Behavior**: Asynchronous, One-to-Many or Many-to-Many.
+*   **Use Case**: Sensor data (Lidar, Camera), Robot State (Joint positions).
+*   **Example**: The `camera_node` *publishes* images. The `perception_node` and `gui_node` both *subscribe* to them.
+
+### B. Services (Request / Response)
+*   **Analogy**: A web API call or ordering food.
+*   **Behavior**: Synchronous (blocking) or Asynchronous. One-to-One.
+*   **Use Case**: Discrete queries or calculations.
+*   **Example**: "Is the battery full?" -> "Yes". "Teleport robot to (0,0)".
+
+### C. Actions (Goal / Feedback / Result)
+*   **Analogy**: Ordering a ride-share. You request a destination (Goal), get updates on the car's location (Feedback), and get a final confirmation when you arrive (Result).
+*   **Behavior**: Long-running tasks that can be canceled.
+*   **Use Case**: Navigation ("Go to the kitchen"), Manipulation ("Pick up the cup").
+
+## 1.3 DDS Middleware
+
+Under the hood, ROS 2 uses **DDS** (Data Distribution Service), an industry standard for real-time systems (used in battleships and dams).
+
+*   **QoS (Quality of Service)**: You can tune how reliable the connection needs to be.
+    *   *Reliable*: Guarantees delivery (like TCP). Good for parameters/commands.
+    *   *Best Effort*: Fast, but might drop packets (like UDP). Good for high-frequency sensor data where the latest value matters more than every single value.
+
+:::info Capstone Linkage
+In our Autonomous Humanoid:
+*   **Topics** will stream joint angles (Proprioception).
+*   **Services** will toggle the power state.
+*   **Actions** will execute the "Walk Forward" command triggered by the VLA Brain.
+:::

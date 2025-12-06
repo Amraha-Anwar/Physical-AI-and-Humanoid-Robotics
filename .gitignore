@@ -1,0 +1,9 @@
+.docusaurus/
+.snaps/
+build/
+node_modules/
+*.log
+*.log.*
+.env
+.DS_Store
+Thumbs.db

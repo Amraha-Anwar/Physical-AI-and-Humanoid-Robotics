@@ -1,0 +1,84 @@
+---
+sidebar_position: 2
+title: "VSLAM and Perception with Isaac ROS"
+---
+
+# VSLAM and Perception with Isaac ROS
+
+For a robot to move, it must answer two questions: "Where am I?" and "What is around me?". We use **Isaac ROS** to answer these using hardware acceleration on the Jetson Orin.
+
+## 2.1 Visual SLAM (VSLAM)
+
+**Simultaneous Localization and Mapping (SLAM)** builds a map of an unknown environment while keeping track of the robot's location within it. **Visual SLAM** uses camera images instead of expensive Lidar.
+
+We use the `isaac_ros_visual_slam` package. It leverages the GPU to track visual features (corners, edges) across frames.
+
+### Architecture
+
+<div style={{textAlign: 'center', margin: '20px'}}>
+  **[Diagram Tag: VSLAM Pipeline]**
+  *Visual description: Input (RealSense RGB/Depth) -> Isaac ROS VSLAM Node (GPU) -> Output (Odometry /tf, Map Points).*
+</div>
+
+## 2.2 Implementation
+
+We launch VSLAM as a composable node to minimize latency.
+
+Create `vslam.launch.py`:
+
+```python
+from launch import LaunchDescription
+from launch_ros.actions import ComposableNodeContainer
+from launch_ros.descriptions import ComposableNode
+
+def generate_launch_description():
+    vslam_node = ComposableNode(
+        name='visual_slam_node',
+        package='isaac_ros_visual_slam',
+        plugin='isaac_ros::visual_slam::VisualSlamNode',
+        parameters=[{
+            'enable_rectified_pose': True,
+            'denoise_input_images': False,
+            'rectified_images': True,
+            'base_frame': 'base_link'
+        }],
+        remappings=[
+            ('stereo_camera/left/image_rect', '/camera/infra1/image_rect_raw'),
+            ('stereo_camera/right/image_rect', '/camera/infra2/image_rect_raw'),
+            ('stereo_camera/left/camera_info', '/camera/infra1/camera_info'),
+            ('stereo_camera/right/camera_info', '/camera/infra2/camera_info')
+        ]
+    )
+
+    container = ComposableNodeContainer(
+        name='vslam_container',
+        namespace='',
+        package='rclcpp_components',
+        executable='component_container',
+        composable_node_descriptions=[vslam_node],
+        output='screen'
+    )
+
+    return LaunchDescription([container])
+```
+
+## 2.3 AprilTag Detection
+
+To interact with specific objects (like a "Goal" marker), we use **AprilTags**. Isaac ROS provides `isaac_ros_apriltag` which runs 10x faster than the CPU version.
+
+*   **Input**: RGB Image
+*   **Output**: 6DoF Pose of the tag relative to the camera.
+
+This is critical for the Capstone: we can place an AprilTag on the "cleaning target" so the robot knows exactly where to walk.
+
+## 2.4 Testing in Simulation
+
+1.  Launch your Isaac Sim world.
+2.  Run `ros2 launch my_humanoid_pkg vslam.launch.py`.
+3.  Open RViz2.
+4.  Set Fixed Frame to `map`.
+5.  Move the robot in sim. You should see the TF tree update and a trail of "Map Points" appearing.
+
+:::info Hardware Note
+On the **Jetson Orin Nano**, this VSLAM pipeline uses the **VPI (Vision Programming Interface)** engine, leaving the CPU free for your Python logic.
+:::

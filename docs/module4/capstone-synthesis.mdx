@@ -1,0 +1,66 @@
+---
+sidebar_position: 3
+title: "Capstone Synthesis & Sim-to-Real"
+---
+
+# Capstone Project: The Autonomous Humanoid
+
+Congratulations! You have built the Nervous System (Module 1), the Digital Twin (Module 2), the Brain (Module 3), and the Mind (Module 4). Now we assemble them.
+
+## 3.1 System Architecture
+
+The final architecture consists of 4 parallel processes running on the Jetson Orin:
+
+1.  **`hardware_interface`**: Talks to motors, reads IMU (1000Hz).
+2.  **`nav2_stack`**: Plans paths using the VSLAM map (20Hz).
+3.  **`vslam_node`**: Localizes the robot using RealSense (30Hz).
+4.  **`cognitive_planner`**: Listens for voice commands (Event-based).
+
+## 3.2 The Sim-to-Real Gap
+
+We trained our VSLAM map and tested our Cognitive Planner in simulation (Isaac Sim). Now we must transfer these assets to the physical robot.
+
+### Deployment Script (`deploy_to_robot.sh`)
+
+We use `rsync` to efficiently synchronize our workspace.
+
+```bash
+#!/bin/bash
+# deploy_to_robot.sh
+
+ROBOT_IP="192.168.1.100"
+USER="robot_user"
+WS_LOCAL="~/ros2_ws/src"
+WS_REMOTE="~/ros2_ws/src"
+
+echo "Deploying code to $USER@$ROBOT_IP..."
+
+# 1. Sync Source Code
+rsync -avz --delete \
+    --exclude '.git' \
+    --exclude 'build' \
+    --exclude 'install' \
+    --exclude 'log' \
+    $WS_LOCAL/my_humanoid_pkg $USER@$ROBOT_IP:$WS_REMOTE
+
+# 2. Sync Maps (Simulated maps used for initial testing)
+rsync -avz $WS_LOCAL/../maps $USER@$ROBOT_IP:~/ros2_ws/
+
+# 3. Remote Build
+ssh $USER@$ROBOT_IP "cd ~/ros2_ws && colcon build --packages-select my_humanoid_pkg && source install/setup.bash"
+
+echo "Deployment Complete. Ready to launch."
+```
+
+## 3.3 Running the Capstone
+
+1.  **SSH into Robot**: `ssh robot_user@<IP>`
+2.  **Launch Base**: `ros2 launch my_humanoid_pkg robot_base.launch.py` (Motors + Sensors)
+3.  **Launch Intelligence**: `ros2 launch my_humanoid_pkg cognitive_brain.launch.py` (Nav2 + VSLAM + Voice)
+4.  **Interact**:
+    *   *You*: "Robot, go to the living room."
+    *   *Robot*: (Transcribes audio -> Plans path -> Executes Nav2 goal).
+
+## 3.4 Final Words
+
+You have traversed the path from basic nodes to a fully embodied intelligent agent. The field of Humanoid Robotics is evolving rapidly. Use this foundation to explore **Reinforcement Learning** for dynamic running or **Manipulation** for household tasks.
