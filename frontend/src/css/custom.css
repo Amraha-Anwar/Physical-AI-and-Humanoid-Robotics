@@ -52,18 +52,60 @@ h1, h2, h3, h4, h5, h6 {
     background-color: rgba(0, 0, 0, 0.95); /* #1A1A2E with opacity */
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 5rem !important;   /* enough room for 5rem logo */
+    align-items: center
+    
+}
+
+/* .navbar__logo img {
+  height: 3.25rem;
+  width: auto;
+  object-fit: contain;
+  display: block;
+} */
+
+/* Fix brand alignment */
+.navbar__brand {
+  display: flex;
+  align-items: center;     /* Vertically center both logo + title */
+  gap: 0.75rem;            /* optional: spacing between logo and title */
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+}
+/* Adjust logo height (you wanted exactly 5rem height max) */
+.navbar__logo img {
+  height: 5rem !important;   /* your desired size */
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.navbar__logo img:hover {
+  transform: scale(1.1);
 }
 
 .navbar__title {
     font-family: var(--ifm-heading-font-family);
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: #fff;
+    /* color: #fff; */
+    color: var(--ifm-color-primary);
+    display: flex;
+    align-items: center;
+}
+
+.navbar__title:hover {
+    color: var(--ifm-color-primary);
+
 }
 
 .navbar__link {
     font-weight: 600;
     transition: color 0.3s ease;
+    /* color: var(--ifm-color-primary); */
 }
 
 .navbar__link:hover, .navbar__link--active {
@@ -268,7 +310,7 @@ h1, h2, h3, h4, h5, h6 {
 .module-card {
     display: block;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(20, 20, 20, 0.6);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(242, 169, 0, 0.5);
     border-radius: 1rem;
