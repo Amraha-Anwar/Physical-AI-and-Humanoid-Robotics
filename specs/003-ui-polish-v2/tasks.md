@@ -48,6 +48,12 @@
 - [x] T007 Perform final UI polish QA and verification using `specs/003-ui-polish-v2/quickstart.md`
 - [x] T008 Implement Site Logo and Favicon in `frontend/docusaurus.config.js` and `frontend/src/css/custom.css`
 - [x] T009 Final Logo/Favicon Configuration Overwrite and Build Check.
+- [x] T010 Fix Mobile Sidebar Aesthetic, Layering, and Navbar Layout in `frontend/src/css/custom.css`.
+- [x] T011 Fix Mobile Sidebar Z-Index and Navbar Clipping in `frontend/src/css/custom.css`.
+- [x] T012 Critical Mobile Layout Fix (Z-Index & Clipping) in `frontend/docusaurus.config.js` and `frontend/src/css/custom.css`.
+- [x] T013 Structural Mobile Navbar and Sidebar Fix (No Forced Z-Index) in `frontend/docusaurus.config.js` and `frontend/src/css/custom.css`.
+- [x] T014 Structural Mobile Navbar and Sidebar Fix (Final Audit) in `frontend/src/css/custom.css`.
+- [x] T015 Structural Mobile Navbar and Sidebar Fix (Final Audit) in `frontend/src/css/custom.css`.
 
 ## Implementation Strategy
 

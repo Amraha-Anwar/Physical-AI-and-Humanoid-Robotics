@@ -641,3 +641,65 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 15px 30px rgba(0,0,0,0.4);
   background-color: rgba(30,30,30,0.7);
 }
+
+  /* Mobile-specific styles (max-width for common mobile breakpoints) */
+@media screen and (max-width: 996px) {
+  /* Navbar Layout Fix */
+  .navbar {
+    padding: 0 0.5rem; /* Adjust padding for smaller screens - minimal padding */
+    min-height: var(--ifm-navbar-height);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .navbar__inner {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .navbar__items--right {
+    padding-right: 0;
+  }
+
+  .navbar__toggle {
+    margin-left: 0.5rem;
+  }
+
+  .navbar__brand {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .navbar__logo img {
+    height: 2.2rem !important;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .navbar__title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 6rem); /* Adjust max-width with smaller logo and padding */
+  }
+
+  /* Sidebar Layering Fix (Z-Index) */
+  .navbar-sidebar {
+    z-index: 1021; /* Structurally correct z-index, higher than typical navbar (1000) */
+    background-color: var(--ifm-background-color);
+  }
+
+  /* Sidebar Aesthetic Fix (Color) */
+  .navbar-sidebar__item a {
+    color: var(--ifm-text-color);
+  }
+
+  .navbar-sidebar__item a:hover {
+    color: var(--ifm-color-primary);
+  }
+
+  .navbar-sidebar__brand {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
