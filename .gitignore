@@ -5,24 +5,23 @@ __pycache__/
 venv/
 dist/
 *.egg-info/
-.env
 
-# Add IDE/OS specific patterns
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
+# Add Docker and Node/Frontend specific patterns
+node_modules/
+.git/
+Dockerfile*
+.dockerignore
+coverage/
+
+# General Logs and Temporary Files
+*.log
 *.tmp
 *.swp
+.DS_Store
+Thumbs.db
+/frontend/package-lock.json
 
-# Add Docker patterns if relevant (from a hypothetical Dockerfile)
-node_modules/
-# .git/
-# Dockerfile*
-# .dockerignore
-# *.log*
-# .env*
-# coverage/
-
-# Add FastAPI specific patterns (logs, etc.)
-*.log
+# Environment Variables and IDE Files (CRITICAL for security)
+.env
+.vscode/
+.idea/
