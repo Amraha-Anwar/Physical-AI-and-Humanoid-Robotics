@@ -16,7 +16,7 @@ Thumbs.db
 *.swp
 
 # Add Docker patterns if relevant (from a hypothetical Dockerfile)
-# node_modules/
+node_modules/
 # .git/
 # Dockerfile*
 # .dockerignore
