@@ -1,0 +1,24 @@
+{
+  "unversionedId": "intro/foundations",
+  "id": "intro/foundations",
+  "title": "Foundations of Physical AI",
+  "description": "1.1 Defining Physical AI vs. Digital AI",
+  "source": "@site/docs/intro/foundations.mdx",
+  "sourceDirName": "intro",
+  "slug": "/intro/foundations",
+  "permalink": "/docs/intro/foundations",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/intro/foundations.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Foundations of Physical AI"
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Setup Guide: Digital Twin Workstation",
+    "permalink": "/docs/intro/setup-workstation"
+  }
+}

@@ -1,0 +1,28 @@
+# Add Python-specific patterns
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+*.egg-info/
+.env
+
+# Add IDE/OS specific patterns
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# Add Docker patterns if relevant (from a hypothetical Dockerfile)
+# node_modules/
+# .git/
+# Dockerfile*
+# .dockerignore
+# *.log*
+# .env*
+# coverage/
+
+# Add FastAPI specific patterns (logs, etc.)
+*.log
