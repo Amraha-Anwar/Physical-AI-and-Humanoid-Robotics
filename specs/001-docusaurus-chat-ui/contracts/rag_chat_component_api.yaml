@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: Docusaurus RAG Chat Component API Consumption
+  version: 1.0.0
+  description: Defines the API interactions for the Docusaurus RAG Chat Component, specifically its consumption of the backend RAG Query API (P2.3).
+
+paths:
+  /api/rag/query:
+    post:
+      summary: Submit a user query to the backend RAG system.
+      description: This endpoint is consumed by the frontend to send user questions and optional highlighted context snippets to the RAG backend.
+      operationId: postRagQuery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../../../001-rag-endpoint/contracts/rag_query_api.yaml#/components/schemas/RAGQueryRequest'
+      responses:
+        '200':
+          description: Successful response with a contextual answer.
+          content:
+            application/json:
+              schema:
+                $ref: '../../../001-rag-endpoint/contracts/rag_query_api.yaml#/components/schemas/RAGQueryResponse'
+        '400':
+          description: Bad request, e.g., invalid input format.
+        '500':
+          description: Internal server error from the RAG backend.
