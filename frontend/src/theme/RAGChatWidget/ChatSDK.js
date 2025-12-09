@@ -5,17 +5,25 @@ class ChatSDK {
     if (ChatSDK.instance) {
       return ChatSDK.instance;
     }
+
+    // Only access localStorage if in browser
     this.sessionId = this.getOrCreateSessionId();
     ChatSDK.instance = this;
   }
 
   getOrCreateSessionId() {
-    let sessionId = localStorage.getItem('rag_session_id');
-    if (!sessionId) {
-      sessionId = uuidv4();
-      localStorage.setItem('rag_session_id', sessionId);
+    // Check if running in browser
+    if (typeof window !== 'undefined') {
+      let sessionId = localStorage.getItem('rag_session_id');
+      if (!sessionId) {
+        sessionId = uuidv4();
+        localStorage.setItem('rag_session_id', sessionId);
+      }
+      return sessionId;
+    } else {
+      // Fallback for server-side: generate a temporary session ID
+      return uuidv4();
     }
-    return sessionId;
   }
 
   async sendMessage(queryText, selectedContext = null) {
@@ -43,7 +51,6 @@ class ChatSDK {
       return data;
     } catch (error) {
       console.error('Error sending message:', error);
-      // Return a structured error response for consistency
       return { 
         answer: "Error: Could not get a response from the chatbot.", 
         session_id: this.sessionId, 

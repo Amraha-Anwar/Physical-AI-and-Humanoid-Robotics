@@ -69,7 +69,7 @@ function Footer() {
         <div className="footer-bottom margin-top--xl">
           <div className="footer-divider margin-bottom--md" />
           <div className="text--center">
-            Copyright © {currentYear} {siteConfig.title}. Built with Docusaurus.
+            Copyright © {currentYear} {siteConfig.title}. Built by A_.
           </div>
         </div>
       </div>
