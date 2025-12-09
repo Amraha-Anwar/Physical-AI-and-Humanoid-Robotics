@@ -1,2 +1,29 @@
 node_modules
 /.env
+# Add Python-specific patterns
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+*.egg-info/
+
+# Add Docker and Node/Frontend specific patterns
+node_modules/
+.git/
+Dockerfile*
+.dockerignore
+coverage/
+
+# General Logs and Temporary Files
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+/frontend/package-lock.json
+
+# Environment Variables and IDE Files (CRITICAL for security)
+.env
+.vscode/
+.idea/

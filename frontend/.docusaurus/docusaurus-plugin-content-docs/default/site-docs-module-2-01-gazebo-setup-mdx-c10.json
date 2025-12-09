@@ -1,0 +1,28 @@
+{
+  "unversionedId": "module2/gazebo-setup",
+  "id": "module2/gazebo-setup",
+  "title": "Gazebo Simulation Setup",
+  "description": "Learning Objectives",
+  "source": "@site/docs/module2/01-gazebo-setup.mdx",
+  "sourceDirName": "module2",
+  "slug": "/module2/gazebo-setup",
+  "permalink": "/docs/module2/gazebo-setup",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/module2/01-gazebo-setup.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Gazebo Simulation Setup"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Robot Modeling (URDF)",
+    "permalink": "/docs/module1/urdf-rviz2"
+  },
+  "next": {
+    "title": "Physics and Collision Simulation",
+    "permalink": "/docs/module2/physics-collision"
+  }
+}

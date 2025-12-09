@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pydantic
+qdrant-client
+psycopg2-binary
+python-dotenv
+openai
+tenacity
+google-generativeai
