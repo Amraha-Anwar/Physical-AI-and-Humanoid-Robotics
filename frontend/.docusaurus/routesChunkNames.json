@@ -1,119 +1,76 @@
 {
-  "/__docusaurus/debug-285": {
-    "__comp": "__comp---theme-debug-config-23-a-2ff",
-    "__context": {
-      "plugin": "plugin---docusaurus-debugc-6-b-d02"
-    }
-  },
-  "/__docusaurus/debug/config-0e4": {
-    "__comp": "__comp---theme-debug-config-23-a-2ff",
-    "__context": {
-      "plugin": "plugin---docusaurus-debugc-6-b-d02"
-    }
-  },
-  "/__docusaurus/debug/content-02f": {
-    "__comp": "__comp---theme-debug-contentba-8-ce7",
-    "__context": {
-      "plugin": "plugin---docusaurus-debugc-6-b-d02"
-    },
-    "allContent": "allContent---docusaurus-debug-content-246-9aa"
-  },
-  "/__docusaurus/debug/globalData-b51": {
-    "__comp": "__comp---theme-debug-global-dataede-0fa",
-    "__context": {
-      "plugin": "plugin---docusaurus-debugc-6-b-d02"
-    }
-  },
-  "/__docusaurus/debug/metadata-f1c": {
-    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
-    "__context": {
-      "plugin": "plugin---docusaurus-debugc-6-b-d02"
-    }
-  },
-  "/__docusaurus/debug/registry-a9b": {
-    "__comp": "__comp---theme-debug-registry-679-501",
-    "__context": {
-      "plugin": "plugin---docusaurus-debugc-6-b-d02"
-    }
-  },
-  "/__docusaurus/debug/routes-40b": {
-    "__comp": "__comp---theme-debug-routes-946-699",
-    "__context": {
-      "plugin": "plugin---docusaurus-debugc-6-b-d02"
-    }
-  },
   "/docs-a7e": {
-    "__comp": "__comp---theme-doc-page-1-be-9be",
+    "__comp": "1be78505",
     "__context": {
-      "plugin": "plugin---docsa-5-a-6ff"
+      "plugin": "a5aa331e"
     },
-    "versionMetadata": "versionMetadata---docs-935-398"
+    "versionMetadata": "935f2afb"
   },
   "/docs/intro/foundations-528": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-intro-foundations-286-12f"
+    "__comp": "17896441",
+    "content": "286cf86d"
   },
   "/docs/intro/setup-edge-kit-9b5": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-intro-setup-edge-kit-9-cf-4d4"
+    "__comp": "17896441",
+    "content": "9cfdfd64"
   },
   "/docs/intro/setup-workstation-872": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-intro-setup-workstation-13-a-fbe"
+    "__comp": "17896441",
+    "content": "13ac4463"
   },
   "/docs/module1/architecture-concepts-bc9": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-1-architecture-conceptse-1-b-95e"
+    "__comp": "17896441",
+    "content": "e1b42297"
   },
   "/docs/module1/packages-rclpy-87d": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-1-packages-rclpy-0-e-8-f61"
+    "__comp": "17896441",
+    "content": "0e835245"
   },
   "/docs/module1/urdf-rviz2-be8": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-1-urdf-rviz-227-f-be9"
+    "__comp": "17896441",
+    "content": "27f83103"
   },
   "/docs/module2/gazebo-setup-e51": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-2-gazebo-setupc-10-88b"
+    "__comp": "17896441",
+    "content": "c104f240"
   },
   "/docs/module2/physics-collision-3ef": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-2-physics-collision-184-184"
+    "__comp": "17896441",
+    "content": "18434cb2"
   },
   "/docs/module2/sensor-simulation-ef9": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-2-sensor-simulation-0-d-2-70c"
+    "__comp": "17896441",
+    "content": "0d2e0baf"
   },
   "/docs/module3/isaac-sim-intro-183": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-3-isaac-sim-intro-1-e-9-ce2"
+    "__comp": "17896441",
+    "content": "1e9824b0"
   },
   "/docs/module3/nav2-humanoids-4f0": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-3-nav-2-humanoids-9-c-8-fef"
+    "__comp": "17896441",
+    "content": "9c813818"
   },
   "/docs/module3/vslam-perception-d14": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-3-vslam-perception-582-20a"
+    "__comp": "17896441",
+    "content": "5827f6f6"
   },
   "/docs/module4/capstone-synthesis-223": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-4-capstone-synthesisdc-0-f5d"
+    "__comp": "17896441",
+    "content": "dc08a55f"
   },
   "/docs/module4/cognitive-planning-b32": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-4-cognitive-planning-1-f-3-863"
+    "__comp": "17896441",
+    "content": "1f376d98"
   },
   "/docs/module4/conversational-robotics-02e": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-module-4-conversational-robotics-537-8fc"
+    "__comp": "17896441",
+    "content": "537f3380"
   },
   "/-347": {
-    "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
+    "__comp": "c4f5d8e4",
     "__context": {
-      "plugin": "plugin---db-5-156"
+      "plugin": "db5dba38"
     },
-    "config": "config---5-e-9-4f3"
+    "config": "5e9f5e1a"
   }
 }
