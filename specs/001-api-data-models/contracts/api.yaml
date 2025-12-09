@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: RAG Chatbot API
+  version: 1.0.0
+paths:
+  /query:
+    post:
+      summary: Submit a query to the RAG system
+      operationId: query_knowledge_base
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RAGQueryRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RAGQueryResponse'
+        '400':
+          description: Bad Request (e.g., empty query)
+        '500':
+          description: Internal Server Error
+
+components:
+  schemas:
+    RAGQueryRequest:
+      type: object
+      required:
+        - query_text
+        - session_id
+      properties:
+        query_text:
+          type: string
+          description: The user's question
+        session_id:
+          type: string
+          description: Unique session identifier
+        selected_context:
+          type: string
+          nullable: true
+          description: Optional text selected by the user
+    
+    RAGQueryResponse:
+      type: object
+      required:
+        - answer
+        - session_id
+        - evaluation_scores
+      properties:
+        answer:
+          type: string
+          description: The LLM's final answer
+        session_id:
+          type: string
+          description: The session ID
+        evaluation_scores:
+          type: object
+          additionalProperties:
+            type: number
+            format: float
+          description: Relevance and faithfulness scores

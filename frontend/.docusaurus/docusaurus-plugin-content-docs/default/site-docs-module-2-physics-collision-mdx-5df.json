@@ -1,0 +1,28 @@
+{
+  "unversionedId": "module2/physics-collision",
+  "id": "module2/physics-collision",
+  "title": "Physics and Collision Simulation",
+  "description": "For a humanoid robot, accurate physics is critical. Unlike a wheeled robot that is statically stable, a biped must constantly balance against gravity.",
+  "source": "@site/docs/module2/physics-collision.mdx",
+  "sourceDirName": "module2",
+  "slug": "/module2/physics-collision",
+  "permalink": "/docs/module2/physics-collision",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/module2/physics-collision.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Physics and Collision Simulation"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Gazebo Simulation Setup",
+    "permalink": "/docs/module2/gazebo-setup"
+  },
+  "next": {
+    "title": "Sensor Simulation",
+    "permalink": "/docs/module2/sensor-simulation"
+  }
+}
