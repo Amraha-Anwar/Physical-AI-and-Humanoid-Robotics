@@ -1,0 +1,105 @@
+from dotenv import load_dotenv
+import os
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))
+
+from fastapi import FastAPI, Depends, HTTPException
+from starlette.responses import JSONResponse
+from psycopg2.extensions import connection as PgConnection
+from backend.dependencies import get_neon_db, setup_db_clients # Import setup_db_clients
+import logging
+
+from fastapi.middleware.cors import CORSMiddleware
+
+from backend.api.ingestion import router as ingestion_router
+from backend.api.query import router as query_router
+from fastapi.middleware.cors import CORSMiddleware
+
+# Add CORS middleware
+from fastapi.middleware.cors import CORSMiddleware
+
+# Configure basic logging for visibility
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+app = FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",  # Docusaurus frontend
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",  # Docusaurus frontend
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(ingestion_router, prefix="/api", tags=["Ingestion"])
+app.include_router(query_router, prefix="/api", tags=["Query"])
+
+# Add startup event handler
+@app.on_event("startup")
+async def startup_event():
+    logger.info("FastAPI application startup event triggered.")
+    await setup_db_clients()
+    logger.info("Database clients setup complete.")
+
+@app.get("/")
+async def read_root():
+    return {"message": "FastAPI application is running."}
+
+@app.get("/db/status/neon")
+async def get_neon_status(db_conn: PgConnection = Depends(get_neon_db)):
+    """
+    Endpoint to check the status of the Neon Postgres connection and table.
+    """
+    try:
+        with db_conn.cursor() as cur:
+            cur.execute("SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'rag_metadata');")
+            table_exists = cur.fetchone()[0]
+
+            if table_exists:
+                return JSONResponse(status_code=200, content={"status": "ok", "database": "Neon Postgres", "table": "rag_metadata", "message": "Connected and table exists."})
+            else:
+                raise HTTPException(status_code=500, detail="Connected to Neon Postgres, but 'rag_metadata' table does not exist.")
+    except Exception as e:
+        logger.error(f"Error checking Neon DB status: {e}")
+        raise HTTPException(status_code=503, detail=f"Failed to connect or verify Neon Postgres: {e}")
+
+from qdrant_client import QdrantClient
+from backend.dependencies import get_qdrant_client
+
+@app.get("/db/status/qdrant")
+async def get_qdrant_status(qdrant_client: QdrantClient = Depends(get_qdrant_client)):
+    """
+    Endpoint to check the status of the Qdrant connection and collection.
+    """
+    collection_name = "book_vectors" # Assuming default collection name as used in initialize_qdrant_client
+    try:
+        # Attempt to get collection information to verify connection and existence
+        collection_info = qdrant_client.get_collection(collection_name=collection_name)
+        return JSONResponse(status_code=200, content={
+            "status": "ok",
+            "database": "Qdrant",
+            "collection": collection_name,
+            "message": "Connected and collection exists.",
+            "collection_status": collection_info.status.value
+        })
+    except Exception as e:
+        logger.error(f"Error checking Qdrant DB status: {e}")
+        raise HTTPException(status_code=503, detail=f"Failed to connect or verify Qdrant: {e}")
