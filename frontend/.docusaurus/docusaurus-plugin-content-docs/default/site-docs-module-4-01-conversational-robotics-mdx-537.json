@@ -1,0 +1,28 @@
+{
+  "unversionedId": "module4/conversational-robotics",
+  "id": "module4/conversational-robotics",
+  "title": "Conversational Robotics",
+  "description": "Learning Objectives",
+  "source": "@site/docs/module4/01-conversational-robotics.mdx",
+  "sourceDirName": "module4",
+  "slug": "/module4/conversational-robotics",
+  "permalink": "/docs/module4/conversational-robotics",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/module4/01-conversational-robotics.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Conversational Robotics"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Nav2 for Humanoids (Conceptual Balance)",
+    "permalink": "/docs/module3/nav2-humanoids"
+  },
+  "next": {
+    "title": "Cognitive Planning with LLMs",
+    "permalink": "/docs/module4/cognitive-planning"
+  }
+}

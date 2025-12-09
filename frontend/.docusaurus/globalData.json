@@ -1,0 +1,103 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "intro/foundations",
+          "docs": [
+            {
+              "id": "intro/foundations",
+              "path": "/docs/intro/foundations",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "intro/setup-edge-kit",
+              "path": "/docs/intro/setup-edge-kit",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "intro/setup-workstation",
+              "path": "/docs/intro/setup-workstation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module1/architecture-concepts",
+              "path": "/docs/module1/architecture-concepts",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module1/packages-rclpy",
+              "path": "/docs/module1/packages-rclpy",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module1/urdf-rviz2",
+              "path": "/docs/module1/urdf-rviz2",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module2/gazebo-setup",
+              "path": "/docs/module2/gazebo-setup",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module2/physics-collision",
+              "path": "/docs/module2/physics-collision",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module2/sensor-simulation",
+              "path": "/docs/module2/sensor-simulation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module3/isaac-sim-intro",
+              "path": "/docs/module3/isaac-sim-intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module3/nav2-humanoids",
+              "path": "/docs/module3/nav2-humanoids",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module3/vslam-perception",
+              "path": "/docs/module3/vslam-perception",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module4/capstone-synthesis",
+              "path": "/docs/module4/capstone-synthesis",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module4/cognitive-planning",
+              "path": "/docs/module4/cognitive-planning",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module4/conversational-robotics",
+              "path": "/docs/module4/conversational-robotics",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/docs/intro/foundations",
+                "label": "intro/foundations"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

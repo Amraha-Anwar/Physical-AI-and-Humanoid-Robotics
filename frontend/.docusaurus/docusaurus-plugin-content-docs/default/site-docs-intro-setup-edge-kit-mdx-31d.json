@@ -1,0 +1,28 @@
+{
+  "unversionedId": "intro/setup-edge-kit",
+  "id": "intro/setup-edge-kit",
+  "title": "Setup Guide: Physical AI Edge Kit",
+  "description": "While the workstation handles simulation, the Edge Kit is the physical brain that rides inside the robot. It processes real-world sensor data and makes decisions in milliseconds.",
+  "source": "@site/docs/intro/setup-edge-kit.mdx",
+  "sourceDirName": "intro",
+  "slug": "/intro/setup-edge-kit",
+  "permalink": "/docs/intro/setup-edge-kit",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/intro/setup-edge-kit.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Setup Guide: Physical AI Edge Kit"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Setup Guide: Digital Twin Workstation",
+    "permalink": "/docs/intro/setup-workstation"
+  },
+  "next": {
+    "title": "ROS 2 Architecture & Core Concepts",
+    "permalink": "/docs/module1/architecture-concepts"
+  }
+}
