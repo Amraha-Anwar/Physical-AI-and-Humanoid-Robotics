@@ -1,0 +1,28 @@
+{
+  "unversionedId": "module3/nav2-humanoids",
+  "id": "module3/nav2-humanoids",
+  "title": "Nav2 for Humanoids",
+  "description": "The Navigation 2 (Nav2) stack is the industry standard for moving robots. However, it was designed for wheeled robots (differential drive, ackermann). Adapting it for a biped requires careful tuning to prevent falling over.",
+  "source": "@site/docs/module3/nav2-humanoids.mdx",
+  "sourceDirName": "module3",
+  "slug": "/module3/nav2-humanoids",
+  "permalink": "/docs/module3/nav2-humanoids",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/module3/nav2-humanoids.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Nav2 for Humanoids"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "VSLAM and Perception with Isaac ROS",
+    "permalink": "/docs/module3/vslam-perception"
+  },
+  "next": {
+    "title": "Conversational Robotics (Voice-to-Action)",
+    "permalink": "/docs/module4/conversational-robotics"
+  }
+}
