@@ -69,3 +69,5 @@
 - [x] T079 Fix Vercel Permission Denied Error: Adjust frontend build scripts to resolve permission denied error on Vercel.
 
 - [x] T080 Final Vercel Configuration Override: Explicitly define project root and build command to fix Exit Code 126.
+
+- [x] T081 Clean Vercel Build Command for Correct Execution: Remove redundant 'cd frontend' from build command.
