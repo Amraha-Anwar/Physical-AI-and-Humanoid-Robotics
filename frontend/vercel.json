@@ -1,8 +1,5 @@
 {
   "version": 2,
-  "projectSettings": {
-    "rootDirectory": "frontend"
-  },
   "builds": [
     {
       "src": "frontend/package.json",
@@ -13,6 +10,9 @@
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/$1" }
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
   ]
 }
