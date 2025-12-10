@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm install && npm run build",
+  "buildCommand": "npm install && ./node_modules/.bin/docusaurus build",
   "outputDirectory": "frontend/build",
   "framework": null
 }

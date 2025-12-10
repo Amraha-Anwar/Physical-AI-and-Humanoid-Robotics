@@ -71,3 +71,5 @@
 - [x] T080 Final Vercel Configuration Override: Explicitly define project root and build command to fix Exit Code 126.
 
 - [x] T081 Clean Vercel Build Command for Correct Execution: Remove redundant 'cd frontend' from build command.
+
+- [x] T082 Force Absolute Binary Path Resolution for Vercel: Use explicit path for docusaurus binary in build command.
