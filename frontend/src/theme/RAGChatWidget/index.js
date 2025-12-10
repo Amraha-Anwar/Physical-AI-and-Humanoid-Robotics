@@ -187,21 +187,22 @@ export default function RAGChatWidget() {
 
           <form className={styles.chatInputArea} onSubmit={handleSubmit}>
             {selectedContext && (
-              <div className={styles.selectedContextIndicator}>
-                Using context: "{selectedContext.substring(0, 50)}..."
+                 <div className={styles.selectedContextIndicator}>
+                Using context: "{selectedContext.substring(0, 50)}..."
               </div>
             )}
-            <input
-              type="text"
-
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Ask a question..."
-              disabled={isLoading}
-            />
-            <button type="submit" disabled={isLoading || !inputValue.trim()}>
-              Send
-            </button>
+            <div className={styles.chatInputRow}>
+  <input
+    type="text"
+    value={inputValue}
+    onChange={(e) => setInputValue(e.target.value)}
+    placeholder="Ask a question..."
+    disabled={isLoading}
+  />
+  <button type="submit" disabled={isLoading || !inputValue.trim()}>
+    Send
+  </button>
+</div>
           </form>
         </div> // <--- This closes the `chatWindow` div
       )} 
