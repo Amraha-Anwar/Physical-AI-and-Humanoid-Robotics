@@ -6,7 +6,7 @@
 export default {
   "title": "Physical AI & Humanoid Robotics",
   "tagline": "AI-Driven Book Creation",
-  "url": "https://your-docusaurus-site.example.com",
+  "url": "https://ai-and-humanoid-robotics.vercel.app",
   "baseUrl": "/",
   "onBrokenLinks": "throw",
   "favicon": "img/favicon.png",
