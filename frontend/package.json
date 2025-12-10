@@ -33,7 +33,7 @@
     ]
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18 <=22"
   },
   "devDependencies": {
     "@docusaurus/core": "^3.9.2",
