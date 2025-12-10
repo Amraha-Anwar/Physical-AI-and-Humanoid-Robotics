@@ -1,5 +1,4 @@
 {
-  "unversionedId": "intro/foundations",
   "id": "intro/foundations",
   "title": "Foundations of Physical AI",
   "description": "1.1 Defining Physical AI vs. Digital AI",
@@ -8,6 +7,7 @@
   "slug": "/intro/foundations",
   "permalink": "/docs/intro/foundations",
   "draft": false,
+  "unlisted": false,
   "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/intro/01-foundations.mdx",
   "tags": [],
   "version": "current",

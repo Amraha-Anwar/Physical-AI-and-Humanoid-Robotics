@@ -1,5 +1,4 @@
 {
-  "unversionedId": "module1/packages-rclpy",
   "id": "module1/packages-rclpy",
   "title": "Packages and rclpy",
   "description": "Learning Objectives",
@@ -8,6 +7,7 @@
   "slug": "/module1/packages-rclpy",
   "permalink": "/docs/module1/packages-rclpy",
   "draft": false,
+  "unlisted": false,
   "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/module1/02-packages-rclpy.mdx",
   "tags": [],
   "version": "current",

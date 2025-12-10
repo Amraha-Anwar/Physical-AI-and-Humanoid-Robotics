@@ -1,5 +1,4 @@
 {
-  "unversionedId": "intro/setup-workstation",
   "id": "intro/setup-workstation",
   "title": "Setup Guide: Digital Twin Workstation",
   "description": "To train complex humanoid behaviors and run photorealistic simulations (NVIDIA Isaac Sim), a powerful workstation is required. This machine serves as the \"Training Ground\" where your Digital Twin lives.",
@@ -8,6 +7,7 @@
   "slug": "/intro/setup-workstation",
   "permalink": "/docs/intro/setup-workstation",
   "draft": false,
+  "unlisted": false,
   "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/intro/02-setup-workstation.mdx",
   "tags": [],
   "version": "current",

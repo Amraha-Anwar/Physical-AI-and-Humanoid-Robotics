@@ -41,7 +41,7 @@ Let's assume our humanoid robot has the following basic actions:
 
 **LLM Prompt Design:**
 
-```python
+````python
 system_prompt = """
 You are a robotic task planner. Your goal is to break down high-level natural language instructions into a sequence of low-level robot actions.
 The robot can perform the following actions:
@@ -52,6 +52,9 @@ The robot can perform the following actions:
 - place_down(object: str) - Places down a specified object. Objects: "cup", "ball".
 
 Return the plan as a JSON array of action objects. Each action object must have a 'name' (string) and 'args' (object mapping argument names to values).
+"""
+````
+
 
 Example:
 User: "Go get the cup from the table."
@@ -66,11 +69,11 @@ Output:
   {"name": "place_down", "args": {"object": "cup"}}
 ]
 ```
+
 If an instruction is unclear or an object/action is not supported, return an empty array or indicate impossibility.
-"""
 
 user_instruction = "Please go to the door, then pick up the red ball and bring it here." # Example user input
-```
+
 
 ## 2. LLM-to-ROS Translation Logic (Pseudo-code)
 
@@ -82,7 +85,7 @@ This logic involves:
 
 **Pseudo-code Example (Python with `rclpy` and conceptual OpenAI API):**
 
-```python
+````python
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
@@ -282,7 +285,7 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-```
+````
 *Pseudo-code: `cognitive_planner.py`*
 
 ### Explanation of Pseudo-code:
@@ -296,14 +299,14 @@ if __name__ == '__main__':
 
 To make `cognitive_planner.py` executable within your ROS 2 environment, ensure it's placed in a package (e.g., `humanoid_vla_pkg`) and its entry point is defined in the `setup.py` of that package:
 
-```python
+````python
 # ... inside setup() function ...
     entry_points={
         'console_scripts': [
             'cognitive_planner = humanoid_vla_pkg.cognitive_planner:main',
         ],
     },
-```
+````
 
 After building your package (`colcon build --packages-select humanoid_vla_pkg`) and sourcing your workspace, you can run the node:
 
