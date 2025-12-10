@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Physical AI & Humanoid Robotics',
   tagline: 'AI-Driven Book Creation',
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://ai-and-humanoid-robotics.vercel.app/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
