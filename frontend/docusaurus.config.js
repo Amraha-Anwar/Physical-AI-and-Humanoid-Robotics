@@ -1,7 +1,9 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs to assist in writing your config.
 
+// @ts-ignore
 const lightCodeTheme = require('prism-react-renderer/themes/github');
+// @ts-ignore
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
@@ -16,8 +18,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Physical-AI-Humanoid-robotics', // Usually your GitHub org/user name.
-  projectName: 'Physical-AI-and-Humanoid-Robotics', // Usually your repo name.
+  organizationName: 'Amraha-Anwar', // Usually your GitHub org/user name.
+  projectName: 'Physical-AI-and-Humanoid-Robotics ', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -37,7 +39,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Amraha-Anwar/Physical-AI-and-Humanoid-Robotics/tree/main/frontend',
         },
         blog: false, // Disable the blog plugin
         theme: {
@@ -106,12 +108,12 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/Amraha-Anwar/Physical-AI-and-Humanoid-Robotics',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} A_. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
