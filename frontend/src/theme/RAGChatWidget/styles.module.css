@@ -10,6 +10,8 @@
 }
 
 .chatTrigger {
+  position: fixed;
+  z-index: 1000000 !important;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -23,7 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: auto; /* Push to bottom when window is open */
+  margin-top: 40px; /* Push to bottom when window is open */
 }
 
 .chatTrigger:hover {
@@ -32,14 +34,14 @@
 
 .chatWindow {
   position: absolute; /* Position relative to .chatWidgetContainer */
-  bottom: 80px; /* Adjust based on trigger button height + margin */
+  bottom: 50px; /* Adjust based on trigger button height + margin */
   right: 0;
   width: 350px;
   height: 500px;
-  background-color: var(--ifm-background-surface-color);
-  border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background-color: var(--ifm-background-color);
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px var(--ifm-color-primary);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -59,14 +61,20 @@
 }
 
 .chatHeader {
-  padding: 16px;
-  background-color: var(--ifm-color-primary);
+  padding: 4px 10px;
+  height: 32px;
+  display: flex;
+  align-items: center;
   color: white;
+  background-color: rgba(0,0,0,0.4);
+  border-bottom: 1px solid var(--ifm-color-primary);
 }
 
 .chatHeader h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
 }
 
 .chatMessages {
@@ -88,16 +96,17 @@
 
 .user {
   align-self: flex-end;
-  background-color: var(--ifm-color-primary);
+  background-color: rgba(197, 196, 196, 0.2);
   color: white;
   border-bottom-right-radius: 2px;
 }
 
 .assistant {
   align-self: flex-start;
-  background-color: var(--ifm-color-emphasis-100);
+  background-color: var(--ifm-background-color);
   color: var(--ifm-font-color-base);
   border-bottom-left-radius: 2px;
+  border: 1px solid rgba(244, 202, 64, 0.2);
 }
 
 .loadingIndicator {
@@ -109,11 +118,12 @@
 
 .chatInputArea {
   padding: 12px;
-  border-top: 1px solid var(--ifm-color-emphasis-200);
+  border-top: 1px solid rgba(244, 202, 64, 0.2);
   display: flex;
   flex-wrap: wrap; /* Allow wrapping for context indicator */
   gap: 8px;
   width: 100%; /* Ensure it takes full width */
+  flex-direction: column;
 }
 
 .selectedContextIndicator {
@@ -150,9 +160,9 @@
   flex: 1;
   padding: 8px 12px;
   border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 20px;
+  border-radius: 8px;
   outline: none;
-  background-color: var(--ifm-background-color);
+  background-color: var(--ifm-form-background-color);
   color: var(--ifm-font-color-base);
 }
 
@@ -165,7 +175,7 @@
   background-color: var(--ifm-color-primary);
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
 }
@@ -187,4 +197,44 @@
 
 .user .scores {
   border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Wrap input + button inside a row */
+.chatInputRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Input should expand */
+.chatInputRow input {
+  flex: 1;
+  width: 100%;
+}
+
+/* Send button stays same size */
+.chatInputRow button {
+  white-space: nowrap;
+}
+
+/* Selected context bar should not push layout */
+.selectedContextIndicator {
+  margin-bottom: -4px;
+  padding: 6px 10px;
+}
+
+.chatCloseButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+}
+.chatCloseButton:hover {
+  opacity: 0.7;
 }

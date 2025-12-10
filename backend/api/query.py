@@ -18,7 +18,7 @@ router = APIRouter()
 async def query_knowledge_base(
     request: RAGQueryRequest, # <-- CHANGED INPUT MODEL
     query_service: QueryService = Depends(get_query_service),
-    evaluation_service: EvaluationService = Depends(get_evaluation_service),
+    evaluation_service: get_evaluation_service = Depends(get_evaluation_service),
     neon_conn: PgConnection = Depends(get_neon_db) # Add neon_conn dependency
 ):
     """
