@@ -1,5 +1,4 @@
 {
-  "unversionedId": "module4/conversational-robotics",
   "id": "module4/conversational-robotics",
   "title": "Conversational Robotics",
   "description": "Learning Objectives",
@@ -8,6 +7,7 @@
   "slug": "/module4/conversational-robotics",
   "permalink": "/docs/module4/conversational-robotics",
   "draft": false,
+  "unlisted": false,
   "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/module4/01-conversational-robotics.mdx",
   "tags": [],
   "version": "current",

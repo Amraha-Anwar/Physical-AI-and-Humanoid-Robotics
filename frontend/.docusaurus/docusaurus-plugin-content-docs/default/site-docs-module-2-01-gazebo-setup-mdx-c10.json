@@ -1,5 +1,4 @@
 {
-  "unversionedId": "module2/gazebo-setup",
   "id": "module2/gazebo-setup",
   "title": "Gazebo Simulation Setup",
   "description": "Learning Objectives",
@@ -8,6 +7,7 @@
   "slug": "/module2/gazebo-setup",
   "permalink": "/docs/module2/gazebo-setup",
   "draft": false,
+  "unlisted": false,
   "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/module2/01-gazebo-setup.mdx",
   "tags": [],
   "version": "current",
