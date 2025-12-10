@@ -65,3 +65,5 @@
   3.  Footer Replacement (US3)
 
 - [x] T078 Resolve Vercel Deployment 404 Error: Fix continuous 404 error by correcting Vercel configuration for Docusaurus.
+
+- [x] T079 Fix Vercel Permission Denied Error: Adjust frontend build scripts to resolve permission denied error on Vercel.
