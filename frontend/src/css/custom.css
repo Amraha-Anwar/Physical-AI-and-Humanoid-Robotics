@@ -53,16 +53,9 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     height: 5rem !important;   /* enough room for 5rem logo */
-    align-items: center
-    
+    align-items: center;
+    z-index: 1020; /* Ensure navbar is properly layered */
 }
-
-/* .navbar__logo img {
-  height: 3.25rem;
-  width: auto;
-  object-fit: contain;
-  display: block;
-} */
 
 /* Fix brand alignment */
 .navbar__brand {
@@ -75,6 +68,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
 }
+
 /* Adjust logo height (you wanted exactly 5rem height max) */
 .navbar__logo img {
   height: 5rem !important;   /* your desired size */
@@ -91,7 +85,6 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--ifm-heading-font-family);
     font-weight: 700;
     letter-spacing: 0.05em;
-    /* color: #fff; */
     color: var(--ifm-color-primary);
     display: flex;
     align-items: center;
@@ -99,13 +92,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar__title:hover {
     color: var(--ifm-color-primary);
-
 }
 
 .navbar__link {
     font-weight: 600;
     transition: color 0.3s ease;
-    /* color: var(--ifm-color-primary); */
 }
 
 .navbar__link:hover, .navbar__link--active {
@@ -145,6 +136,7 @@ h1, h2, h3, h4, h5, h6 {
     overflow: hidden;
     background-color: var(--ifm-background-color);
     padding-bottom: 8rem; /* Increased spacing for smooth transition */
+    z-index: 1; /* Below sidebar on mobile */
 }
 
 .hero-section::after {
@@ -442,7 +434,6 @@ h1, h2, h3, h4, h5, h6 {
   animation: pulse-glow 4s infinite ease-in-out;
 }
 
-
 /* Learning Journey Matrix Styles */
 .matrix-section {
   background-color: var(--ifm-background-color);
@@ -506,7 +497,6 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--ifm-color-primary-light);
 }
 
-
 /* Custom Footer Styles */
 .custom-footer {
   background-color: #050505;
@@ -561,7 +551,6 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
   width: 100%;
 }
-
 
 /* Core Competencies Asymmetrical Grid */
 .competency-grid {
@@ -642,64 +631,170 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(30,30,30,0.7);
 }
 
-  /* Mobile-specific styles (max-width for common mobile breakpoints) */
+/* Mobile-specific styles (max-width for common mobile breakpoints) */
 @media screen and (max-width: 996px) {
   /* Navbar Layout Fix */
   .navbar {
-    padding: 0 0.5rem; /* Adjust padding for smaller screens - minimal padding */
-    min-height: var(--ifm-navbar-height);
-    overflow: hidden;
+    padding: 0.5rem 1rem !important;
+    min-height: 60px !important;
+    height: auto !important;
+    overflow: visible !important;
     box-sizing: border-box;
+    position: fixed !important;
+    top: 0;
+    width: 100%;
+    z-index: 100 !important;
   }
 
   .navbar__inner {
     width: 100%;
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .navbar__items {
+    display: flex;
+    align-items: center;
   }
 
   .navbar__items--right {
     padding-right: 0;
+    flex: 0 0 auto;
   }
 
   .navbar__toggle {
-    margin-left: 0.5rem;
+    margin: 0 0 0 0.5rem !important;
+    z-index: 102 !important;
+    order: 2;
   }
 
   .navbar__brand {
-    flex-shrink: 1;
+    flex: 1 1 auto;
     min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    order: 1;
+    overflow: hidden;
+  }
+
+  .navbar__logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
   }
 
   .navbar__logo img {
-    height: 2.2rem !important;
-    width: auto;
+    height: 2.5rem !important;
+    width: auto !important;
+    max-width: 2.5rem !important;
     object-fit: contain;
     display: block;
   }
 
   .navbar__title {
+    font-size: 1rem !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: calc(100% - 6rem); /* Adjust max-width with smaller logo and padding */
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
-  /* Sidebar Layering Fix (Z-Index) */
+  /* Sidebar Layering Fix - CRITICAL */
   .navbar-sidebar {
-    z-index: 1021; /* Structurally correct z-index, higher than typical navbar (1000) */
-    background-color: var(--ifm-background-color);
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    z-index: 9999 !important;
+    background-color: rgba(0, 0, 0, 0.98) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow-y: auto;
   }
 
-  /* Sidebar Aesthetic Fix (Color) */
+  .navbar-sidebar__backdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9998 !important;
+    background-color: rgba(0, 0, 0, 0.85) !important;
+  }
+
+  .navbar-sidebar__items {
+    z-index: 10000 !important;
+  }
+
+  .navbar-sidebar__item {
+    z-index: 10000 !important;
+  }
+
+  /* Sidebar Aesthetic Fix */
   .navbar-sidebar__item a {
-    color: var(--ifm-text-color);
+    color: var(--ifm-text-color) !important;
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
   }
 
   .navbar-sidebar__item a:hover {
-    color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary) !important;
+    background-color: rgba(242, 169, 0, 0.1);
   }
 
   .navbar-sidebar__brand {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 1.5rem;
   }
+
+  /* Hero section should be below sidebar */
+  .hero-section {
+    position: relative;
+    z-index: 1 !important;
+    margin-top: 60px; /* Account for fixed navbar */
+  }
+
+  /* Ensure all hero elements stay below sidebar */
+  .hero-background-gradient-top,
+  .hero-background-gradient-bottom,
+  .hero-content-container {
+    z-index: auto !important;
+  }
+
+  /* Fix for main content wrapper */
+  main {
+    position: relative;
+    z-index: 1 !important;
+  }
+
+  /* Ensure all page content stays below sidebar */
+  .main-wrapper {
+    z-index: 1 !important;
+  }
+}
+
+/* Force sidebar elements above everything */
+.navbar-sidebar {
+  z-index: 9999 !important;
+}
+
+.navbar-sidebar__backdrop {
+  z-index: 9998 !important;
+}
+
+html[data-theme] .navbar-sidebar {
+  z-index: 9999 !important;
+}
+
+html[data-theme] .navbar-sidebar__backdrop {
+  z-index: 9998 !important;
 }
