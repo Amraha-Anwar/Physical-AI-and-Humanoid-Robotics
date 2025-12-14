@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1001;
+  z-index: 999;
 }
 
 .chatTrigger:hover {
@@ -51,13 +51,56 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   visibility: hidden;
   pointer-events: none;
+  z-index: 999;
+}
+
+/* Responsive sizing */
+@media (max-width: 768px) {
+  .chatWindow {
+    width: calc(100vw - 40px);
+    max-width: 420px;
+    height: 60vh;
+    max-height: 500px;
+    bottom: 90px;
+  }
+
+  .chatTrigger {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatWindow {
+    width: calc(100vw - 20px);
+    right: 10px;
+    bottom: 80px;
+    height: 55vh;
+    max-height: 450px;
+  }
+
+  .chatTrigger {
+    right: 10px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .chatWidgetContainer {
+    right: 0;
+  }
 }
 
 /* Ensure window doesn't exceed viewport */
 @media (max-height: 700px) {
   .chatWindow {
-    height: calc(100vh - 130px);
+    height: calc(100vh - 150px);
     max-height: none;
+  }
+}
+
+@media (max-height: 600px) {
+  .chatWindow {
+    height: calc(100vh - 120px);
   }
 }
 
@@ -79,6 +122,12 @@
   flex-shrink: 0;
 }
 
+@media (max-width: 480px) {
+  .chatHeader {
+    padding: 18px 20px;
+  }
+}
+
 .chatHeader h3 {
   margin: 0;
   font-size: 1.35rem;
@@ -88,6 +137,12 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -0.3px;
+}
+
+@media (max-width: 480px) {
+  .chatHeader h3 {
+    font-size: 1.15rem;
+  }
 }
 
 .chatCloseButton {
@@ -124,6 +179,13 @@
   min-height: 0;
 }
 
+@media (max-width: 480px) {
+  .chatMessages {
+    padding: 16px;
+    gap: 14px;
+  }
+}
+
 /* Hide scrollbar */
 .chatMessages::-webkit-scrollbar {
   display: none;
@@ -142,6 +204,14 @@
   line-height: 1.6;
   word-wrap: break-word;
   animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 480px) {
+  .message {
+    max-width: 85%;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
 }
 
 @keyframes slideIn {
@@ -192,6 +262,13 @@
   flex-shrink: 0;
 }
 
+@media (max-width: 480px) {
+  .chatInputArea {
+    padding: 16px 18px 18px;
+    gap: 10px;
+  }
+}
+
 .selectedContextIndicator {
   width: 100%;
   font-size: 0.86rem;
@@ -206,24 +283,38 @@
   margin-bottom: 2px;
 }
 
+@media (max-width: 480px) {
+  .selectedContextIndicator {
+    font-size: 0.8rem;
+    padding: 9px 12px;
+  }
+}
+
 .askButton {
   position: fixed;
   background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary) 100%);
   color: #1a1a1a;
   border: none;
   border-radius: 14px;
-  padding: 8px 12px;
+  padding: 10px 16px;
   font-size: 0.92rem;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(244, 202, 64, 0.45);
   transition: all 0.3s ease;
   white-space: nowrap;
-  z-index: 10000;
+  z-index: 998;
   display: flex;
   align-items: center;
   gap: 8px;
   pointer-events: auto;
+}
+
+@media (max-width: 480px) {
+  .askButton {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
 }
 
 .askButton:hover {
@@ -238,6 +329,12 @@
   width: 100%;
 }
 
+@media (max-width: 480px) {
+  .chatInputRow {
+    gap: 8px;
+  }
+}
+
 .chatInputRow input {
   flex: 1;
   padding: 15px 19px;
@@ -248,6 +345,13 @@
   color: #e8e8e8;
   font-size: 0.96rem;
   transition: all 0.25s ease;
+}
+
+@media (max-width: 480px) {
+  .chatInputRow input {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
 }
 
 .chatInputRow input::placeholder {
@@ -273,6 +377,13 @@
   transition: all 0.25s ease;
   box-shadow: 0 4px 14px rgba(244, 202, 64, 0.35);
   flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .chatInputRow button {
+    padding: 12px 18px;
+    font-size: 0.9rem;
+  }
 }
 
 .chatInputRow button:hover:not(:disabled) {
