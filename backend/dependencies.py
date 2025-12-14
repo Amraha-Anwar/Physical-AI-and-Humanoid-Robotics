@@ -1,4 +1,5 @@
 import os
+import psycopg2
 import functools
 from typing import Generator, Optional
 from psycopg2.extensions import connection as PgConnection

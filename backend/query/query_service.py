@@ -145,7 +145,7 @@ class QueryService:
             logger.error(f"Context compression failed: {e}", exc_info=True)
             return ""
 
-    async def _fetch_context_from_neon(self, chunk_ids: List[str]) -> List[str]:
+    async def _fetch_context_from_neon(self, chunk_ids: List[str], neon_conn: PgConnection) -> List[str]:
         """
         Retrieves text content for the given chunk IDs from Neon.
         """
@@ -161,7 +161,7 @@ class QueryService:
         
         fetched_texts = []
         try:
-            with self.neon_conn.cursor() as cur:
+            with neon_conn.cursor() as cur:
                 cur.execute(query, (chunk_ids,))
                 rows = cur.fetchall()
                 # row[0] is text_snippet_preview
