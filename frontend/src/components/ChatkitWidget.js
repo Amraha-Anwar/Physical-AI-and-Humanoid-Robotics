@@ -4,8 +4,7 @@ import styles from './ChatkitWidget.module.css';
 
 const ChatkitWidget = () => {
   // Use environment variable if available, otherwise fallback to your Render link
-  const API_BASE_URL = process.env.REACT_APP_API_URL || "https://physical-ai-and-humanoid-robotics-1.onrender.com";
-
+  const API_BASE_URL = "https://physical-ai-and-humanoid-robotics-1.onrender.com";
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`);
   
   const [messages, setMessages] = useState([
