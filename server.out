@@ -1,4 +1,0 @@
-DEBUG: Groq Embedding Failed: Error code: 404 - {'error': {'message': 'The model `text-embedding-ada-002` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
-DEBUG: Groq Embedding Failed: Error code: 404 - {'error': {'message': 'The model `text-embedding-ada-002` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
-DEBUG: Groq Embedding Failed: Error code: 404 - {'error': {'message': 'The model `text-embedding-ada-002` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
-INFO:     127.0.0.1:54981 - "POST /api/ingestion HTTP/1.1" 500 Internal Server Error
