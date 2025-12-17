@@ -1,11 +1,11 @@
 import React from 'react';
-import RAGChatWidget from './RAGChatWidget';
+import ChatkitWidget from '@site/src/components/ChatkitWidget';
 
 export default function Root({ children }) {
   return (
     <>
       {children}
-      <RAGChatWidget />
+      <ChatkitWidget />
     </>
   );
 }

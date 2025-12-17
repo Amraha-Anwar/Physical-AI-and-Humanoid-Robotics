@@ -9,7 +9,7 @@ from fastapi import Depends
 
 from backend.models import NeonConfig, QdrantConfig
 from backend.neon_client import initialize_neon_db
-from backend.qdrant_client import initialize_qdrant_client
+from backend.qdrant_service import initialize_qdrant_client
 
 from backend.ingestion.embeddings_client import EmbeddingClient
 from backend.ingestion.parser_and_chunker import ContentProcessor
@@ -46,7 +46,7 @@ def get_qdrant_config() -> QdrantConfig:
     """Loads Qdrant configuration from environment variables."""
     host = os.getenv("QDRANT_HOST")
     api_key = os.getenv("QDRANT_API_KEY")
-    vector_size_str = os.getenv("QDRANT_VECTOR_SIZE", "768")
+    vector_size_str = os.getenv("QDRANT_VECTOR_SIZE", "1024") # Default to 1024 for Cohere embed-english-v3.0
 
     if not host or not api_key:
         raise ValueError("QDRANT_HOST and QDRANT_API_KEY environment variables must be set.")
@@ -117,7 +117,10 @@ async def setup_db_clients():
         logger.info("QueryService initialized.")
 
         # Initialize EvaluationService (without neon_conn in constructor)
-        openai_client = openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        api_key = os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY")
+        base_url = "https://generativelanguage.googleapis.com/v1beta/openai/" if os.getenv("GEMINI_API_KEY") else None
+        
+        openai_client = openai.AsyncOpenAI(api_key=api_key, base_url=base_url)
         _evaluation_service = EvaluationService(
             openai_client=openai_client,
         )
@@ -212,7 +215,11 @@ def get_evaluation_service(
     global _evaluation_service
     if _evaluation_service is None:
         logger.warning("EvaluationService not initialized during startup. Initializing on first request.")
-        openai_client = openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        
+        api_key = os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY")
+        base_url = "https://generativelanguage.googleapis.com/v1beta/openai/" if os.getenv("GEMINI_API_KEY") else None
+        
+        openai_client = openai.AsyncOpenAI(api_key=api_key, base_url=base_url)
         _evaluation_service = EvaluationService(
             openai_client=openai_client
         )

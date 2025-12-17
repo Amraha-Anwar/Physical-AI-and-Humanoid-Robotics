@@ -25,4 +25,4 @@ class RagChunk(BaseModel):
     created_at: Optional[datetime] = None
 
     class Config:
-        orm_mode = True # For SQLAlchemy ORM integration
+        from_attributes = True # For SQLAlchemy ORM integration
