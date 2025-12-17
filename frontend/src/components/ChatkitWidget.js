@@ -3,6 +3,9 @@ import { MessageCircle, X, Sparkles, Send } from 'lucide-react';
 import styles from './ChatkitWidget.module.css';
 
 const ChatkitWidget = () => {
+  // Use environment variable if available, otherwise fallback to your Render link
+  const API_BASE_URL = process.env.REACT_APP_API_URL || "https://physical-ai-and-humanoid-robotics-1.onrender.com";
+
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`);
   
   const [messages, setMessages] = useState([
@@ -19,20 +22,16 @@ const ChatkitWidget = () => {
   const [inputValue, setInputValue] = useState('');
   const [askAiButton, setAskAiButton] = useState({ show: false, x: 0, y: 0, text: '' });
   
-  // Ref for the scrollable messages container
   const messagesEndRef = useRef(null);
 
-  // Function to scroll to bottom
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Scroll whenever messages update or typing starts
   useEffect(() => {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  // Handle text selection on the page
   useEffect(() => {
     const handleSelection = () => {
       const selection = window.getSelection();
@@ -95,7 +94,8 @@ const ChatkitWidget = () => {
     setIsTyping(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/query", {
+      // Updated the fetch URL to use the API_BASE_URL constant
+      const response = await fetch(`${API_BASE_URL}/api/query`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query_text: message, session_id: sessionId }),
@@ -185,7 +185,6 @@ const ChatkitWidget = () => {
                 </div>
               </div>
             )}
-            {/* Invisible element to anchor the scroll */}
             <div ref={messagesEndRef} />
           </div>
 
