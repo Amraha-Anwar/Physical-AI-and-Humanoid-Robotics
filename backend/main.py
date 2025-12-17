@@ -43,9 +43,7 @@ app = FastAPI()
 
 # T002: Simplified CORS middleware
 origins = [
-    "http://localhost",
-    "http://localhost:3000",
-    "*"  # Temporarily allow all for debugging if strict origin fails
+    "https://ai-and-robotics.vercel.app"
 ]
 
 app.add_middleware(
