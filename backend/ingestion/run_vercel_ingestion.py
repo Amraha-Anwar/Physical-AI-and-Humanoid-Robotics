@@ -4,12 +4,12 @@ import os
 from dotenv import load_dotenv
 import psycopg2
 
-from backend.dependencies import get_neon_config, get_qdrant_config
-from backend.qdrant_service import initialize_qdrant_client
-from backend.ingestion.embeddings_client import EmbeddingClient
-from backend.ingestion.parser_and_chunker import ContentProcessor
-from backend.ingestion.ingestion_service import IngestionService
-from backend.ingestion.vercel_crawler import VercelCrawler
+from dependencies import get_neon_config, get_qdrant_config
+from qdrant_service import initialize_qdrant_client
+from ingestion.embeddings_client import EmbeddingClient
+from ingestion.parser_and_chunker import ContentProcessor
+from ingestion.ingestion_service import IngestionService
+from ingestion.vercel_crawler import VercelCrawler
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

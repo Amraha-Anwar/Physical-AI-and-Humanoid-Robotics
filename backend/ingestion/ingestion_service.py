@@ -7,10 +7,10 @@ from qdrant_client.http.models import PointStruct, models
 from datetime import datetime
 import asyncio
 
-from backend.ingestion.embeddings_client import EmbeddingClient
-from backend.ingestion.parser_and_chunker import ContentProcessor
-from backend.ingestion.models import InputContent, EmbeddableChunk
-from backend.models import RagChunk # Import RagChunk from backend.models
+from ingestion.embeddings_client import EmbeddingClient
+from ingestion.parser_and_chunker import ContentProcessor
+from ingestion.models import InputContent, EmbeddableChunk
+from models import RagChunk # Import RagChunk from backend.models
 
 logger = logging.getLogger(__name__)
 

@@ -32,12 +32,12 @@ if missing_vars:
 from fastapi import FastAPI, Depends, HTTPException
 from starlette.responses import JSONResponse
 from psycopg2.extensions import connection as PgConnection
-from backend.dependencies import get_neon_db, setup_db_clients
+from dependencies import get_neon_db, setup_db_clients
 from fastapi.middleware.cors import CORSMiddleware
-from backend.api.ingestion import router as ingestion_router
-from backend.api.query import router as query_router
+from api.ingestion import router as ingestion_router
+from api.query import router as query_router
 from qdrant_client import QdrantClient
-from backend.dependencies import get_qdrant_client
+from dependencies import get_qdrant_client
 
 app = FastAPI()
 
@@ -87,7 +87,7 @@ async def get_neon_status(db_conn: PgConnection = Depends(get_neon_db)):
         raise HTTPException(status_code=503, detail=f"Failed to connect or verify Neon Postgres: {e}")
 
 from qdrant_client import QdrantClient
-from backend.dependencies import get_qdrant_client
+from dependencies import get_qdrant_client
 
 @app.get("/db/status/qdrant")
 async def get_qdrant_status(qdrant_client: QdrantClient = Depends(get_qdrant_client)):

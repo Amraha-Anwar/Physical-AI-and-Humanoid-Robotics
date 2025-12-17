@@ -1,5 +1,5 @@
 import psycopg2
-from backend.models import NeonConfig, RagChunk # Import RagChunk
+from models import NeonConfig, RagChunk # Import RagChunk
 from psycopg2.extensions import connection as PgConnection
 import logging
 

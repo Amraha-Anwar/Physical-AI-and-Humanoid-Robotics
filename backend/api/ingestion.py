@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from starlette.responses import JSONResponse
 import logging
 
-from backend.ingestion.models import InputContent # Added import for InputContent
-from backend.ingestion.ingestion_service import IngestionService
-from backend.dependencies import get_ingestion_service, get_neon_db
+from ingestion.models import InputContent # Added import for InputContent
+from ingestion.ingestion_service import IngestionService
+from dependencies import get_ingestion_service, get_neon_db
 from psycopg2.extensions import connection as PgConnection # Import PgConnection
 
 logger = logging.getLogger(__name__)

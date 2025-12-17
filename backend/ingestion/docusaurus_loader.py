@@ -1,7 +1,7 @@
 import os
 import re
 from typing import List, Dict
-from backend.ingestion.models import InputContent, Chapter, TextSection
+from ingestion.models import InputContent, Chapter, TextSection
 
 class DocusaurusLoader:
     def __init__(self, docs_root: str):

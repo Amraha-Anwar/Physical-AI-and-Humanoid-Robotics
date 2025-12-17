@@ -7,16 +7,16 @@ from qdrant_client import AsyncQdrantClient
 import logging
 from fastapi import Depends
 
-from backend.models import NeonConfig, QdrantConfig
-from backend.neon_client import initialize_neon_db
-from backend.qdrant_service import initialize_qdrant_client
+from models import NeonConfig, QdrantConfig
+from neon_client import initialize_neon_db
+from qdrant_service import initialize_qdrant_client
 
-from backend.ingestion.embeddings_client import EmbeddingClient
-from backend.ingestion.parser_and_chunker import ContentProcessor
-from backend.ingestion.ingestion_service import IngestionService
-from backend.query.query_service import QueryService
-from backend.query.history_service import HistoryService
-from backend.evaluation.evaluation_service import EvaluationService
+from ingestion.embeddings_client import EmbeddingClient
+from ingestion.parser_and_chunker import ContentProcessor
+from ingestion.ingestion_service import IngestionService
+from query.query_service import QueryService
+from query.history_service import HistoryService
+from evaluation.evaluation_service import EvaluationService
 import openai
 
 # Configure basic logging for visibility

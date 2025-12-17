@@ -3,7 +3,7 @@ from typing import List, Optional
 from datetime import datetime
 
 # Assuming RagChunk is in backend/models.py, we'll import it
-from backend.models import RagChunk
+from models import RagChunk
 
 class TextSection(BaseModel):
     section_title: Optional[str] = None

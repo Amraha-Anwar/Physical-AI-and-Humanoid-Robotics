@@ -2,11 +2,11 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from typing import Optional, Dict
-from backend.dependencies import get_query_service, get_evaluation_service, get_neon_db
+from dependencies import get_query_service, get_evaluation_service, get_neon_db
 from psycopg2.extensions import connection as PgConnection # Import PgConnection
 import logging
-from backend.api.models import RAGQueryRequest, RAGQueryResponse
-from backend.query.query_service import QueryService
+from api.models import RAGQueryRequest, RAGQueryResponse
+from query.query_service import QueryService
 
 logger = logging.getLogger(__name__)
 

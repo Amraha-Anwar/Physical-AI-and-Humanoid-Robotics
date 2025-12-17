@@ -1,6 +1,6 @@
 from qdrant_client import AsyncQdrantClient
 from qdrant_client.http.models import Distance, VectorParams
-from backend.models import QdrantConfig
+from models import QdrantConfig
 import logging
 
 logger = logging.getLogger(__name__)

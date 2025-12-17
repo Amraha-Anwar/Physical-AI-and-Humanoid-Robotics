@@ -6,10 +6,10 @@ import os
 from typing import List, Dict, Any
 from psycopg2.extensions import connection as PgConnection
 from qdrant_client import AsyncQdrantClient
-from backend.ingestion.embeddings_client import EmbeddingClient
-from backend.query.history_service import HistoryService
-from backend.api.models import RAGQueryRequest
-from backend.query.agents import run_rag_pipeline
+from ingestion.embeddings_client import EmbeddingClient
+from query.history_service import HistoryService
+from api.models import RAGQueryRequest
+from query.agents import run_rag_pipeline
 from dotenv import load_dotenv
 import asyncio
 

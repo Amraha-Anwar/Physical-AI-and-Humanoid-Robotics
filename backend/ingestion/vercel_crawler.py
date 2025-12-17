@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import xml.etree.ElementTree as ET
 from typing import List
-from backend.ingestion.models import InputContent, Chapter, TextSection
+from ingestion.models import InputContent, Chapter, TextSection
 import logging
 
 logger = logging.getLogger(__name__)

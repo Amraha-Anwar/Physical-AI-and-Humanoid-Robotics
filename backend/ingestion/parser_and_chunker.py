@@ -2,8 +2,8 @@ import uuid
 from datetime import datetime
 from typing import List, Generator
 
-from backend.models import RagChunk
-from backend.ingestion.models import InputContent, Chapter, TextSection
+from models import RagChunk
+from ingestion.models import InputContent, Chapter, TextSection
 
 class ContentProcessor:
     """
