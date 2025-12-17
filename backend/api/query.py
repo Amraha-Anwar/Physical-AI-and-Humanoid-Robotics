@@ -41,7 +41,11 @@ async def query_knowledge_base(
         context_used = result.get("context", "")
         
         # Evaluate RAG (uses request.query_text)
-        eval_scores = await evaluation_service.evaluate_rag_async(request.query_text, context_used, answer)
+        try:
+            eval_scores = await evaluation_service.evaluate_rag_async(request.query_text, context_used, answer)
+        except Exception as e:
+            logger.error(f"Evaluation failed (non-blocking): {e}")
+            eval_scores = {"relevance": 0.0, "grounding": 0.0}
 
         # --- CONFORMING TO NEW RAGQueryResponse MODEL ---
         return RAGQueryResponse(

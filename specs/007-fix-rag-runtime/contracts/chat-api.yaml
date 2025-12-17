@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: RAG Chatbot API
+  version: 1.0.0
+paths:
+  /api/chat:
+    post:
+      summary: Send a message to the RAG agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                context:
+                  type: string
+              required:
+                - message
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                  status:
+                    type: string
+        '500':
+          description: Server Error

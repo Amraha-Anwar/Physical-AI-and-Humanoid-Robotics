@@ -12,7 +12,7 @@ class EvaluationService:
     """
     def __init__(self, openai_client: openai.AsyncOpenAI): # Removed neon_conn
         self.openai_client = openai_client
-        self.openai_model = "gpt-3.5-turbo" # Using a consistent model for evaluation
+        self.openai_model = "gemini-2.5-flash" # Using a consistent model for evaluation
 
     async def evaluate_rag_async(self, question: str, context: str, answer: str) -> Dict[str, float]:
         """

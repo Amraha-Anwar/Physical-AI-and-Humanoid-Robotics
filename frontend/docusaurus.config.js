@@ -74,6 +74,9 @@ const config = {
           },
         ],
       },
+      stylesheets: [
+        '@chatscope/chat-ui-kit-styles/dist/default/main.css',
+      ],
       footer: {
         style: 'dark',
         links: [
