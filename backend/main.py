@@ -36,7 +36,7 @@ from dependencies import get_neon_db, setup_db_clients
 from fastapi.middleware.cors import CORSMiddleware
 from api.ingestion import router as ingestion_router
 from api.query import router as query_router
-from qdrant_client import QdrantClient
+from qdrant_client import AsyncQdrantClient
 from dependencies import get_qdrant_client
 
 app = FastAPI()
@@ -90,14 +90,14 @@ from qdrant_client import QdrantClient
 from dependencies import get_qdrant_client
 
 @app.get("/db/status/qdrant")
-async def get_qdrant_status(qdrant_client: QdrantClient = Depends(get_qdrant_client)):
+async def get_qdrant_status(qdrant_client: AsyncQdrantClient = Depends(get_qdrant_client)):
     """
     Endpoint to check the status of the Qdrant connection and collection.
     """
     collection_name = "book_vectors" # Assuming default collection name as used in initialize_qdrant_client
     try:
         # Attempt to get collection information to verify connection and existence
-        collection_info = qdrant_client.get_collection(collection_name=collection_name)
+        collection_info = qdrant_client.get_collection(collection_name)
         return JSONResponse(status_code=200, content={
             "status": "ok",
             "database": "Qdrant",
@@ -107,4 +107,4 @@ async def get_qdrant_status(qdrant_client: QdrantClient = Depends(get_qdrant_cli
         })
     except Exception as e:
         logger.error(f"Error checking Qdrant DB status: {e}")
-        raise HTTPException(status_code=503, detail=f"Failed to connect or verify Qdrant: {e}")
+        raise HTTPException(status_code=503, detail=str(e))

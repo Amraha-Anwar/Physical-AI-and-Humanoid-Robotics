@@ -1,38 +1,59 @@
 from qdrant_client import AsyncQdrantClient
-from qdrant_client.http.models import Distance, VectorParams
+from qdrant_client.models import Distance, VectorParams
 from models import QdrantConfig
 import logging
 
 logger = logging.getLogger(__name__)
 
-async def initialize_qdrant_client(config: QdrantConfig, collection_name: str = "book_vectors") -> AsyncQdrantClient:
-    """
-    Initializes and returns an AsyncQdrant client.
-    Connects to Qdrant Cloud using the provided configuration.
-    Ensures the specified collection exists, creating it if necessary.
-    """
-    qdrant_client = AsyncQdrantClient(
-        url=config.host,
-        port=config.port,
-        api_key=config.api_key.get_secret_value(),
-        prefer_grpc=True
-    )
+COLLECTION_NAME = "book_vectors"
 
-    # Ensure the collection exists
+async def initialize_qdrant_client(config: QdrantConfig) -> AsyncQdrantClient:
+    """
+    Initialize and return a Qdrant client configured for Qdrant Cloud.
+    """
     try:
-        # Check if collection already exists
-        if await qdrant_client.collection_exists(collection_name=collection_name):
-             logger.info(f"Collection '{collection_name}' already exists.")
-        else:
-            logger.info(f"Collection '{collection_name}' not found. Creating new collection.")
-            await qdrant_client.create_collection(
-                collection_name=collection_name,
-                vectors_config=VectorParams(size=config.vector_size, distance=Distance.COSINE),
-            )
-            logger.info(f"Collection '{collection_name}' created successfully with vector_size={config.vector_size}.")
-
+        # Extract plain string values from SecretStr if needed
+        api_key = config.api_key
+        if hasattr(api_key, 'get_secret_value'):
+            api_key = api_key.get_secret_value()
+        
+        host = config.host
+        if hasattr(host, 'get_secret_value'):
+            host = host.get_secret_value()
+        
+        # For Qdrant Cloud, use the HTTPS URL directly
+        client = AsyncQdrantClient(
+            url=host,
+            api_key=api_key,  # Now it's a plain string
+            timeout=60,
+            prefer_grpc=False,
+        )
+        
+        logger.info(f"Attempting to connect to Qdrant at: {host}")
+        
+        # Check if collection exists
+        try:
+            logger.info(f"Validating Qdrant collection '{COLLECTION_NAME}'...")
+            await client.get_collection(collection_name=COLLECTION_NAME)
+            logger.info(f"Collection '{COLLECTION_NAME}' exists and is accessible.")
+        except Exception as e:
+            if "404" in str(e) or "Not Found" in str(e) or "not found" in str(e).lower():
+                logger.warning(f"Collection '{COLLECTION_NAME}' not found. Creating it...")
+                
+                await client.create_collection(
+                    collection_name=COLLECTION_NAME,
+                    vectors_config=VectorParams(
+                        size=config.vector_size,
+                        distance=Distance.COSINE
+                    )
+                )
+                logger.info(f"Collection '{COLLECTION_NAME}' created successfully.")
+            else:
+                logger.error(f"Failed to access collection: {e}")
+                raise
+        
+        return client
+        
     except Exception as e:
-        logger.error(f"Error ensuring Qdrant collection '{collection_name}' exists: {e}")
+        logger.error(f"Qdrant initialization failed: {e}", exc_info=True)
         raise
-
-    return qdrant_client

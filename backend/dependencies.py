@@ -19,10 +19,14 @@ from query.history_service import HistoryService
 from evaluation.evaluation_service import EvaluationService
 import openai
 
-# Configure basic logging for visibility
+# -------------------------------------------------------------------
+# Logging
+# -------------------------------------------------------------------
 logger = logging.getLogger(__name__)
 
-# Global variables to hold the DB connections/clients
+# -------------------------------------------------------------------
+# Global singletons
+# -------------------------------------------------------------------
 _qdrant_client: Optional[AsyncQdrantClient] = None
 _embedding_client: Optional[EmbeddingClient] = None
 _content_processor: Optional[ContentProcessor] = None
@@ -31,42 +35,61 @@ _query_service: Optional[QueryService] = None
 _history_service: Optional[HistoryService] = None
 _evaluation_service: Optional[EvaluationService] = None
 
+
+# -------------------------------------------------------------------
+# Neon (Postgres) config
+# -------------------------------------------------------------------
 def get_neon_config() -> NeonConfig:
-    """Loads Neon configuration from environment variables."""
     conn_string = os.getenv("NEON_POSTGRES_CONNECTION_STRING")
     if not conn_string:
         raise ValueError("NEON_POSTGRES_CONNECTION_STRING environment variable not set.")
     return NeonConfig(connection_string=conn_string)
 
+
 @functools.lru_cache()
 def _get_cached_neon_config() -> NeonConfig:
     return get_neon_config()
 
+
+# -------------------------------------------------------------------
+# Qdrant config (CLOUD – REST ONLY)
+# -------------------------------------------------------------------
 def get_qdrant_config() -> QdrantConfig:
-    """Loads Qdrant configuration from environment variables."""
+    """
+    Qdrant Cloud configuration.
+    IMPORTANT:
+    - Use HTTPS URL
+    - NO port
+    - NO gRPC
+    """
     host = os.getenv("QDRANT_HOST")
     api_key = os.getenv("QDRANT_API_KEY")
-    vector_size_str = os.getenv("QDRANT_VECTOR_SIZE", "1024") # Default to 1024 for Cohere embed-english-v3.0
+    vector_size_str = os.getenv("QDRANT_VECTOR_SIZE", "768")
 
     if not host or not api_key:
-        raise ValueError("QDRANT_HOST and QDRANT_API_KEY environment variables must be set.")
-    
+        raise ValueError("QDRANT_HOST and QDRANT_API_KEY must be set.")
+
     try:
         vector_size = int(vector_size_str)
     except ValueError:
         raise ValueError("QDRANT_VECTOR_SIZE must be an integer.")
 
-    return QdrantConfig(host=host, api_key=api_key, vector_size=vector_size)
+    return QdrantConfig(
+        host=host,
+        api_key=api_key,
+        vector_size=vector_size,
+    )
+
 
 @functools.lru_cache()
 def _get_cached_qdrant_config() -> QdrantConfig:
     return get_qdrant_config()
 
+
+# -------------------------------------------------------------------
+# Startup initialization
+# -------------------------------------------------------------------
 async def setup_db_clients():
-    """
-    Initializes global database clients (Qdrant, Embedding, ContentProcessor) and services.
-    Ensures Neon DB tables are created. This function should be called on application startup.
-    """
     global _qdrant_client
     global _embedding_client
     global _content_processor
@@ -76,74 +99,70 @@ async def setup_db_clients():
     global _evaluation_service
 
     logger.info("Initializing database clients and services...")
-    
+
     try:
-        # Initialize Neon DB (DDL only, no global connection)
+        # Neon DB (DDL only)
         neon_config = _get_cached_neon_config()
-        initialize_neon_db(neon_config) # Just run DDL
+        initialize_neon_db(neon_config)
         logger.info("Neon Postgres DDL ensured.")
 
-        # Initialize Qdrant Client
+        # Qdrant Cloud (REST)
         qdrant_config = _get_cached_qdrant_config()
         _qdrant_client = await initialize_qdrant_client(qdrant_config)
         logger.info("Qdrant client initialized.")
 
-        # Initialize EmbeddingClient
+        # Core components
         _embedding_client = EmbeddingClient()
-        logger.info("EmbeddingClient initialized.")
-
-        # Initialize ContentProcessor
         _content_processor = ContentProcessor()
-        logger.info("ContentProcessor initialized.")
+        _history_service = HistoryService()
 
-        # Initialize IngestionService (without neon_conn in constructor)
+        # Services
         _ingestion_service = IngestionService(
             embedding_client=_embedding_client,
             content_processor=_content_processor,
-            qdrant_client=_qdrant_client
+            qdrant_client=_qdrant_client,
         )
-        logger.info("IngestionService initialized.")
-        
-        # Initialize HistoryService (without neon_conn in constructor)
-        _history_service = HistoryService()
-        logger.info("HistoryService initialized.")
-        
-        # Initialize QueryService (without neon_conn in constructor)
+
         _query_service = QueryService(
             embedding_client=_embedding_client,
             qdrant_client=_qdrant_client,
-            history_service=_history_service
+            history_service=_history_service,
         )
-        logger.info("QueryService initialized.")
 
-        # Initialize EvaluationService (without neon_conn in constructor)
         api_key = os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY")
-        base_url = "https://generativelanguage.googleapis.com/v1beta/openai/" if os.getenv("GEMINI_API_KEY") else None
-        
-        openai_client = openai.AsyncOpenAI(api_key=api_key, base_url=base_url)
-        _evaluation_service = EvaluationService(
-            openai_client=openai_client,
+        base_url = (
+            "https://generativelanguage.googleapis.com/v1beta/openai/"
+            if os.getenv("GEMINI_API_KEY")
+            else None
         )
-        logger.info("EvaluationService initialized.")
 
+        openai_client = openai.AsyncOpenAI(
+            api_key=api_key,
+            base_url=base_url,
+        )
+
+        _evaluation_service = EvaluationService(openai_client=openai_client)
+
+        logger.info("All database clients and services initialized successfully.")
 
     except Exception as e:
-        logger.critical(f"Failed to initialize one or more database clients or services: {e}", exc_info=True)
-        # Depending on desired behavior, could re-raise or attempt graceful shutdown
+        logger.critical(
+            "Failed to initialize one or more database clients or services",
+            exc_info=True,
+        )
         raise RuntimeError("Database client and service initialization failed.") from e
 
 
+# -------------------------------------------------------------------
+# FastAPI dependencies
+# -------------------------------------------------------------------
 def get_neon_db() -> Generator[PgConnection, None, None]:
-    """
-    FastAPI dependency that provides a Neon Postgres database connection.
-    A new connection is created for each request and closed after the request is finished.
-    """
     neon_config = _get_cached_neon_config()
     conn_string = neon_config.connection_string.get_secret_value()
     conn = None
     try:
         conn = psycopg2.connect(conn_string)
-        conn.autocommit = True # Ensure DDL statements are committed immediately
+        conn.autocommit = True
         yield conn
     finally:
         if conn:
@@ -151,76 +170,65 @@ def get_neon_db() -> Generator[PgConnection, None, None]:
 
 
 def get_qdrant_client() -> AsyncQdrantClient:
-    """
-    FastAPI dependency that provides a Qdrant client instance.
-    The client is initialized once globally and reused.
-    """
-    global _qdrant_client
     if _qdrant_client is None:
-        # This path should ideally not be hit if setup_db_clients is called on startup
-        logger.warning("Qdrant client not initialized during startup. Cannot initialize async client in sync dependency.")
         raise RuntimeError("Qdrant client not initialized.")
     return _qdrant_client
 
+
 def get_ingestion_service(
-    qdrant_client: AsyncQdrantClient = Depends(get_qdrant_client)
+    qdrant_client: AsyncQdrantClient = Depends(get_qdrant_client),
 ) -> IngestionService:
-    """
-    FastAPI dependency that provides an IngestionService instance.
-    """
     global _ingestion_service
     global _embedding_client
     global _content_processor
 
-    if _ingestion_service is None or _embedding_client is None or _content_processor is None:
-        logger.warning("IngestionService or its components not initialized during startup. Initializing on first request.")
-        # Re-initialize components if not already done (should be done by setup_db_clients)
-        _embedding_client = EmbeddingClient()
-        _content_processor = ContentProcessor()
+    if _ingestion_service is None:
+        _embedding_client = _embedding_client or EmbeddingClient()
+        _content_processor = _content_processor or ContentProcessor()
         _ingestion_service = IngestionService(
             embedding_client=_embedding_client,
             content_processor=_content_processor,
-            qdrant_client=qdrant_client
+            qdrant_client=qdrant_client,
         )
+
     return _ingestion_service
 
+
 def get_query_service(
-    qdrant_client: AsyncQdrantClient = Depends(get_qdrant_client)
+    qdrant_client: AsyncQdrantClient = Depends(get_qdrant_client),
 ) -> QueryService:
-    """
-    FastAPI dependency that provides a QueryService instance.
-    """
     global _query_service
     global _embedding_client
     global _history_service
 
-    if _query_service is None or _embedding_client is None:
-        logger.warning("QueryService or its components not initialized during startup. Initializing on first request.")
-        _embedding_client = EmbeddingClient()
-        if _history_service is None:
-             _history_service = HistoryService() # Constructor no longer takes neon_conn
-        
+    if _query_service is None:
+        _embedding_client = _embedding_client or EmbeddingClient()
+        _history_service = _history_service or HistoryService()
         _query_service = QueryService(
             embedding_client=_embedding_client,
             qdrant_client=qdrant_client,
-            history_service=_history_service # Constructor no longer takes neon_conn
+            history_service=_history_service,
         )
+
     return _query_service
 
-def get_evaluation_service(
-) -> EvaluationService:
-    """
-    FastAPI dependency that provides an EvaluationService instance.
-    """
+
+def get_evaluation_service() -> EvaluationService:
     global _evaluation_service
+
     if _evaluation_service is None:
-        logger.warning("EvaluationService not initialized during startup. Initializing on first request.")
-        
         api_key = os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY")
-        base_url = "https://generativelanguage.googleapis.com/v1beta/openai/" if os.getenv("GEMINI_API_KEY") else None
-        
-        openai_client = openai.AsyncOpenAI(api_key=api_key, base_url=base_url)
-        _evaluation_service = EvaluationService(
-            openai_client=openai_client
+        base_url = (
+            "https://generativelanguage.googleapis.com/v1beta/openai/"
+            if os.getenv("GEMINI_API_KEY")
+            else None
         )
+
+        openai_client = openai.AsyncOpenAI(
+            api_key=api_key,
+            base_url=base_url,
+        )
+
+        _evaluation_service = EvaluationService(openai_client=openai_client)
+
     return _evaluation_service
