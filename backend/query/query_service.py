@@ -1,7 +1,6 @@
 import logging
-import google.generativeai as genai
 import openai
-from agents import AsyncOpenAI, OpenAIChatCompletionsModel
+from agents import AsyncOpenAI
 import os
 from typing import List, Dict, Any
 from psycopg2.extensions import connection as PgConnection
@@ -29,21 +28,12 @@ class QueryService:
         self.qdrant_client = qdrant_client
         self.history_service = history_service
         self.qdrant_collection_name = "book_vectors"
-        
-        # Configure OpenAI Client to use Gemini
-        gemini_api_key =os.getenv("GEMINI_API_KEY")
-        gemini_base_url =os.getenv("BASE_URL")
 
-
-        client = AsyncOpenAI(
-            api_key=gemini_api_key,
-            base_url=gemini_base_url,
+        # Configure OpenAI client for LLM completions
+        self.openai_client = AsyncOpenAI(
+            api_key=os.getenv("OPENAI_API_KEY"),
         )
-
-        model = OpenAIChatCompletionsModel(
-            model="gemini-2.5-flash",
-            openai_client=client,
-        )
+        self.openai_model = "gpt-4o-mini"
 
     async def answer_question_async(self, request: RAGQueryRequest, neon_conn: PgConnection) -> Dict[str, str]:
         """

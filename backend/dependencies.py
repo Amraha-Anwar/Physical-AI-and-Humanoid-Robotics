@@ -64,7 +64,7 @@ def get_qdrant_config() -> QdrantConfig:
     """
     host = os.getenv("QDRANT_HOST")
     api_key = os.getenv("QDRANT_API_KEY")
-    vector_size_str = os.getenv("QDRANT_VECTOR_SIZE", "768")
+    vector_size_str = os.getenv("QDRANT_VECTOR_SIZE", "1536")
 
     if not host or not api_key:
         raise ValueError("QDRANT_HOST and QDRANT_API_KEY must be set.")
@@ -129,16 +129,10 @@ async def setup_db_clients():
             history_service=_history_service,
         )
 
-        api_key = os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY")
-        base_url = (
-            "https://generativelanguage.googleapis.com/v1beta/openai/"
-            if os.getenv("GEMINI_API_KEY")
-            else None
-        )
+        api_key = os.getenv("OPENAI_API_KEY")
 
         openai_client = openai.AsyncOpenAI(
             api_key=api_key,
-            base_url=base_url,
         )
 
         _evaluation_service = EvaluationService(openai_client=openai_client)
@@ -217,16 +211,10 @@ def get_evaluation_service() -> EvaluationService:
     global _evaluation_service
 
     if _evaluation_service is None:
-        api_key = os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY")
-        base_url = (
-            "https://generativelanguage.googleapis.com/v1beta/openai/"
-            if os.getenv("GEMINI_API_KEY")
-            else None
-        )
+        api_key = os.getenv("OPENAI_API_KEY")
 
         openai_client = openai.AsyncOpenAI(
             api_key=api_key,
-            base_url=base_url,
         )
 
         _evaluation_service = EvaluationService(openai_client=openai_client)

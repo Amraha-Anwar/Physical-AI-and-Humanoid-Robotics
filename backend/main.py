@@ -15,9 +15,7 @@ required_vars = [
     "NEON_POSTGRES_CONNECTION_STRING",
     "QDRANT_HOST",
     "QDRANT_API_KEY",
-    "GEMINI_API_KEY",
-    "BASE_URL",
-    "COHERE_API_KEY"
+    "OPENAI_API_KEY"
 ]
 
 missing_vars = [var for var in required_vars if not os.getenv(var)]
@@ -43,7 +41,9 @@ app = FastAPI()
 
 # T002: Simplified CORS middleware
 origins = [
-    "https://ai-and-robotics.vercel.app"
+    "https://ai-and-robotics.vercel.app",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
 ]
 
 app.add_middleware(

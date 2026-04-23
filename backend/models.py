@@ -7,7 +7,7 @@ class QdrantConfig(BaseModel):
     host: str
     port: Optional[int] = None
     api_key: SecretStr
-    vector_size: int = 768
+    vector_size: int = 1536
 
 
 class NeonConfig(BaseModel):

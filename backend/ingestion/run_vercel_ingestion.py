@@ -37,7 +37,7 @@ async def main():
             logger.info(f"Clearing collection '{collection_name}'...")
             await qdrant_client.delete_collection(collection_name)
             # Re-initialize to create it empty
-            await initialize_qdrant_client(qdrant_config, collection_name)
+            await initialize_qdrant_client(qdrant_config)
             logger.info("Collection recreated empty.")
         
         embedding_client = EmbeddingClient()

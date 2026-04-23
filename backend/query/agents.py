@@ -40,7 +40,7 @@ def make_retrieval_tool(
 # --------------------
 def get_agents(client: AsyncOpenAI):
     model = OpenAIChatCompletionsModel(
-        model="gemini-2.5-flash",
+        model="gpt-4o-mini",
         openai_client=client,
     )
 
@@ -78,14 +78,24 @@ def make_orchestrator_agent(retrieval_fn, model, reasoning_agent):
         instructions="""
 You are a RAG Orchestrator.
 
-Steps:
+First, classify the user's message:
+- If it is a casual greeting or small talk (e.g. "hi", "hello", "hey", "good morning",
+  "thanks", "how are you", "who are you"), or any other non-technical message that
+  does not ask about Physical AI, humanoid robotics, or the book's content, do NOT
+  call retrieve_context. Respond directly with a short, friendly message such as:
+  "Hi! I'm your Physical AI & Humanoid Robotics assistant. Ask me anything about the book."
+  Adapt the wording to fit the greeting, but keep it brief and welcoming.
+
+- Otherwise, treat the message as a substantive question and follow the RAG steps below.
+
+RAG Steps (only for substantive questions):
 1. Call the retrieve_context tool.
 2. Pass the retrieved context forward.
 3. Hand off to the Reasoning Agent.
 
 Rules:
-- Never answer directly.
-- Always retrieve context first.
+- For substantive questions: never answer directly; always retrieve context first.
+- For greetings/small talk: answer directly without retrieval.
 """,
         tools=[retrieve_context],
         handoffs=[reasoning_agent],
@@ -100,8 +110,7 @@ async def run_rag_pipeline(
 ) -> str:
     # Instantiate client here (Lazy Loading)
     client = AsyncOpenAI(
-        api_key=os.getenv("GEMINI_API_KEY"),
-        base_url=os.getenv("BASE_URL"),
+        api_key=os.getenv("OPENAI_API_KEY"),
     )
     
     model, reasoning_agent = get_agents(client)
